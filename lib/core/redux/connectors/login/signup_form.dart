@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:dashboard/core/redux/actions/auth_actions.dart';
 import 'package:dashboard/core/redux/app_state.dart';
 import 'package:dashboard/ui/widgets/login/signup_form.dart';
 import 'package:latlong/latlong.dart';
@@ -26,7 +27,12 @@ class ViewModel extends BaseModel<AppState> {
 
   @override
   BaseModel fromStore() => ViewModel.build(
-        onSignUp: (name, email, password, coords) => print('Lanzado registro'),
+        onSignUp: (name, email, password, coords) => dispatch(SignUpAction(
+          name: name,
+          email: email,
+          password: password,
+          coords: coords,
+        )),
         isLoading: state.isLoading,
       );
 }

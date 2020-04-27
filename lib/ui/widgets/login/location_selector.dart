@@ -6,8 +6,10 @@ class LocationSelector extends StatefulWidget {
   final Function(LatLng) onSelected;
   final selectedLocation;
 
-  LocationSelector(
-      {@required this.onSelected, @required this.selectedLocation});
+  LocationSelector({
+    @required this.onSelected,
+    @required this.selectedLocation,
+  });
 
   @override
   _LocationSelectorState createState() => _LocationSelectorState();

@@ -1,9 +1,8 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:dashboard/core/enums/device_screen_type.dart';
-import 'package:dashboard/core/redux/actions/login_actions.dart';
+import 'package:dashboard/core/redux/actions/auth_actions.dart';
 import 'package:dashboard/core/redux/app_state.dart';
 import 'package:dashboard/ui/responsive/responsive_builder.dart';
-import 'package:dashboard/ui/shared/green_lean_icons.dart';
 import 'package:flutter/material.dart';
 
 class TopBar extends StatelessWidget implements PreferredSizeWidget {

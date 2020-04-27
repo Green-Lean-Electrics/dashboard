@@ -1,5 +1,5 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:dashboard/core/redux/actions/login_actions.dart';
+import 'package:dashboard/core/redux/actions/auth_actions.dart';
 import 'package:dashboard/core/redux/app_state.dart';
 import 'package:dashboard/ui/widgets/login/login_form.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +26,7 @@ class ViewModel extends BaseModel<AppState> {
 
   @override
   BaseModel fromStore() => ViewModel.build(
-        onLogin: (email, password) => dispatchFuture(
+        onLogin: (email, password) => dispatch(
           LoginAction(email: email, password: password),
         ),
         isLoading: state.isLoading,

@@ -3,6 +3,7 @@ import 'package:dashboard/core/enums/user_role.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/state/auth_state.dart';
 import 'package:dashboard/core/services/api_service/api_service.dart';
+import 'package:latlong/latlong.dart';
 
 class FakeAPI implements ApiService {
   @override
@@ -22,6 +23,27 @@ class FakeAPI implements ApiService {
       );
     }
     throw UserException('Unknown user or passowrd');
+  }
+
+  @override
+  Future<AuthState> signUp(
+    String name,
+    String email,
+    String password,
+    LatLng coords,
+  ) async {
+    await Future.delayed(Duration(seconds: 2));
+    return AuthState(
+      user: User(
+        name: name,
+        email: email,
+        profilePictureURL:
+            "https://avatars1.githubusercontent.com/u/3115756?s=460&u=f2730d80135af68a86e4e68b5e3b3e7849bb3471&v=4",
+        userRole: UserRole.PROSUMER_ROLE,
+      ),
+      token: "TOKEN_HERE",
+      isAuthenticated: true,
+    );
   }
 
   @override
