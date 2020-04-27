@@ -1,0 +1,4 @@
+enum UserRole {
+  PROSUMER_ROLE,
+  MANAGER_ROLE
+}
