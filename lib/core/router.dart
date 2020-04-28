@@ -1,4 +1,4 @@
-import 'package:dashboard/ui/views/prosumer_home/prosumer_home.dart';
+import 'package:dashboard/core/redux/connectors/prosumer_home.dart';
 import 'package:dashboard/ui/views/prosumer_my_gle/prosumer_my_gle.dart';
 import 'package:dashboard/ui/views/prosumer_settings/prosumer_settings.dart';
 import 'package:flutter/material.dart';
@@ -13,7 +13,7 @@ class Router {
     print('Enrutando ' + settings.name);
     switch (settings.name) {
       case HOME_ROUTE:
-        return _getPageRoute(ProsumerHomeView());
+        return _getPageRoute(ProsumerHomeViewConnector());
       case MY_GLE_ROUTE:
         return _getPageRoute(ProsumerMyGLEView());
       case SETTINGS_ROUTE:
