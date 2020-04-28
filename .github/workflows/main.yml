@@ -8,6 +8,7 @@ on:
 
 jobs:
   build:
+    name: Build web artifact
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
@@ -32,6 +33,8 @@ jobs:
         path: build/web
   
   deploy:
+    name: Deploy to Firebase
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
