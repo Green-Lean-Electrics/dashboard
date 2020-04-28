@@ -20,6 +20,8 @@ jobs:
       uses: subosito/flutter-action@v1
       with:
         channel: 'beta'
+    - name: Enable web support  
+      run: flutter config --enable-web
     - name: Download dependencies
       run: flutter pub get
     - name: Build web release
