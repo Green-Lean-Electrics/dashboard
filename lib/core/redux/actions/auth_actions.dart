@@ -23,7 +23,7 @@ class LoginAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService api = locator<ApiService>();
     AuthState authState = await api.login(this.email, this.password);
-    
+
     return state.copy(authState: authState);
   }
 
@@ -51,7 +51,7 @@ class SignUpAction extends ReduxAction<AppState> {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService api = locator<ApiService>();
     AuthState authState = await api.signUp(name, email, password, coords);
-    
+
     return state.copy(authState: authState);
   }
 
@@ -60,7 +60,7 @@ class SignUpAction extends ReduxAction<AppState> {
 
 class LogoutAction extends ReduxAction<AppState> {
   @override
-  Future<AppState> reduce() async {
+  AppState reduce() {
     ApiService api = locator<ApiService>();
     return state.copy(authState: api.logout());
   }

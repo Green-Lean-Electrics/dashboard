@@ -38,12 +38,14 @@ class DrawerContent extends StatelessWidget {
   }
 
   Widget buildAvatar() {
+    String pictureURL = user.profilePictureURL ??
+        'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
     Widget reduced = Column(
       children: <Widget>[
         Container(height: 30),
         CircleAvatar(
           radius: 20.0,
-          backgroundImage: NetworkImage(user.profilePictureURL),
+          backgroundImage: NetworkImage(pictureURL),
           backgroundColor: Colors.transparent,
         ),
       ],
@@ -54,7 +56,7 @@ class DrawerContent extends StatelessWidget {
         ListTile(
           leading: CircleAvatar(
             radius: 30.0,
-            backgroundImage: NetworkImage(user.profilePictureURL),
+            backgroundImage: NetworkImage(pictureURL),
             backgroundColor: Colors.transparent,
           ),
           title: Text(user.name),
@@ -109,7 +111,7 @@ class DrawerContent extends StatelessWidget {
             title: Text(EnumStrings.menuOptions[menuOption]),
           );
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         final navigatorKey = locator<NavigationService>();
         onMenuSelected(menuOption);
         navigatorKey.navigateTo(EnumStrings.menuRoutes[menuOption]);

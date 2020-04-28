@@ -11,13 +11,15 @@ class User {
   final String name;
   final String email;
   final String profilePictureURL;
-  final UserRole userRole;
+  final String householdId;
+  final UserRole role;
 
   User({
     @required this.name,
     @required this.email,
     @required this.profilePictureURL,
-    @required this.userRole,
+    @required this.householdId,
+    @required this.role,
   });
 
   @override
@@ -27,7 +29,7 @@ class User {
   }
 
   @override
-  int get hashCode => name.hashCode ^ userRole.hashCode;
+  int get hashCode => name.hashCode ^ householdId.hashCode ^ role.hashCode;
 
   @override
   bool operator ==(other) =>
@@ -36,7 +38,8 @@ class User {
           this.name == other.name &&
           this.email == other.email &&
           this.profilePictureURL == other.profilePictureURL &&
-          this.userRole == other.userRole);
+          this.householdId == other.householdId &&
+          this.role == other.role);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

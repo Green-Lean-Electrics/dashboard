@@ -16,7 +16,8 @@ class FakeAPI implements ApiService {
           email: "hola@pedromalo.dev",
           profilePictureURL:
               "https://avatars1.githubusercontent.com/u/3115756?s=460&u=f2730d80135af68a86e4e68b5e3b3e7849bb3471&v=4",
-          userRole: UserRole.PROSUMER_ROLE,
+          householdId: "",
+          role: UserRole.PROSUMER_ROLE,
         ),
         token: "TOKEN_HERE",
         isAuthenticated: true,
@@ -39,7 +40,8 @@ class FakeAPI implements ApiService {
         email: email,
         profilePictureURL:
             "https://avatars1.githubusercontent.com/u/3115756?s=460&u=f2730d80135af68a86e4e68b5e3b3e7849bb3471&v=4",
-        userRole: UserRole.PROSUMER_ROLE,
+        householdId: "",
+        role: UserRole.PROSUMER_ROLE,
       ),
       token: "TOKEN_HERE",
       isAuthenticated: true,
