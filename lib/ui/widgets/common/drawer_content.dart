@@ -140,7 +140,7 @@ class DrawerContent extends StatelessWidget {
           size: 40,
         ),
         title: Text('Green Lean Dashboard'),
-        subtitle: Text('v. 0.1'),
+        subtitle: Text('v. 0.1.3'),
       )
     ]);
 

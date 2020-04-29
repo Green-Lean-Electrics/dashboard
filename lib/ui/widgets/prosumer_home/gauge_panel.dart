@@ -61,7 +61,7 @@ class GaugePanel extends StatelessWidget {
               (rowIndex) => Expanded(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: gauges[2 * columnIndex + rowIndex],
+                  child: gauges[columnIndex + 2 * rowIndex],
                 ),
               ),
             ),

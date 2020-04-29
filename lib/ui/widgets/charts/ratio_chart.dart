@@ -5,8 +5,9 @@ import 'package:pie_chart/pie_chart.dart';
 
 class RatioChart extends StatelessWidget {
   final double ratio;
+  final bool isLoading;
 
-  RatioChart({@required this.ratio});
+  RatioChart({@required this.ratio, @required this.isLoading});
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
@@ -21,8 +22,8 @@ class RatioChart extends StatelessWidget {
               padding: const EdgeInsets.all(15.0),
               child: PieChart(
                 dataMap: {
-                  'To buffer': this.ratio,
-                  'To market': 100.0 - this.ratio,
+                  'Buffer': this.ratio * 100,
+                  'Market': 100.0 - (this.ratio * 100),
                 },
                 chartRadius: 140,
                 animationDuration: Duration(milliseconds: 800),
@@ -47,14 +48,18 @@ class RatioChart extends StatelessWidget {
               child: Column(
                 children: <Widget>[
                   Indicator(
-                    color: Colors.pink,
-                    text: 'Selling to market',
+                    color: Color.fromRGBO(5, 247, 150, 1),
+                    text: this.isLoading
+                     ? 'Selling to market'
+                     : 'Buying from market',
                     isSquare: false,
                   ),
                   Container(height: 6),
                   Indicator(
-                    color: Color.fromRGBO(5, 247, 150, 1),
-                    text: 'Loading to buffer',
+                    color: Colors.pink,
+                    text: this.isLoading
+                     ? 'Loading to buffer'
+                     : 'Consuming from buffer',
                     isSquare: false,
                   ),
                 ],

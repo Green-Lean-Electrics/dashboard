@@ -4,6 +4,11 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 class BatteryChart extends StatelessWidget {
+  final double bufferLoad;
+  static const MAX_BUFFER_LOAD = 7.0;
+
+  BatteryChart({@required this.bufferLoad});
+
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -49,7 +54,7 @@ class BatteryChart extends StatelessWidget {
                         x: 0,
                         barRods: [
                           BarChartRodData(
-                            y: 80,
+                            y: (bufferLoad / MAX_BUFFER_LOAD) * 100,
                             color: Color.fromRGBO(5, 247, 150, 1),
                             width: 60,
                             backDrawRodData: BackgroundBarChartRodData(

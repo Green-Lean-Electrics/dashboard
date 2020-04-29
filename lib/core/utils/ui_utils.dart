@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 
 class UIUtils {
   static DeviceScreenType getDeviceType(MediaQueryData mediaQuery) {
-    double deviceWidth = mediaQuery.size.shortestSide;
+    double deviceWidth = mediaQuery.size.width;
 
-    if (deviceWidth > 885) {
+    if (deviceWidth > 1400) {
       return DeviceScreenType.Desktop;
     }
 

@@ -24,7 +24,7 @@ class ProsumerHomeView extends StatefulWidget {
 
 class _ProsumerHomeViewState extends State<ProsumerHomeView> {
   final channel =
-      HtmlWebSocketChannel.connect("ws://pure-badlands-64215.herokuapp.com");
+      HtmlWebSocketChannel.connect("wss://pure-badlands-64215.herokuapp.com");
 
   @override
   void initState() {
@@ -44,7 +44,6 @@ class _ProsumerHomeViewState extends State<ProsumerHomeView> {
         HomeData homeData = snapshot.hasData
             ? HomeData.fromJson(json.decode(snapshot.data))
             : HomeData.emptyData();
-
         return ScreenTypeLayout(
           mobile: ProsumerHomeMobile(homeData: homeData),
           tablet: ProsumerHomeTablet(homeData: homeData),

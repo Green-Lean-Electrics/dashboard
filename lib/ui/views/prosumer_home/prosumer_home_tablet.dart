@@ -27,7 +27,11 @@ class ProsumerHomeTablet extends StatelessWidget {
                   aspectRatio: 1,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: RatioChart(ratio: 60),
+                    child: RatioChart(
+                      ratio: homeData.ratio,
+                      isLoading: homeData.electricityProduction >
+                          homeData.electricityConsumption,
+                    ),
                   ),
                 ),
               ),
@@ -37,7 +41,7 @@ class ProsumerHomeTablet extends StatelessWidget {
                   aspectRatio: 1,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: BatteryChart(),
+                    child: BatteryChart(bufferLoad: homeData.bufferLoad),
                   ),
                 ),
               )
