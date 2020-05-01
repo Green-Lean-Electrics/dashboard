@@ -38,8 +38,7 @@ class DrawerContent extends StatelessWidget {
   }
 
   Widget buildAvatar() {
-    String pictureURL = user.profilePictureURL ??
-        'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png';
+    String pictureURL = 'https://pure-badlands-64215.herokuapp.com' + user.profilePictureURL;
     Widget reduced = Column(
       children: <Widget>[
         Container(height: 30),
@@ -92,16 +91,19 @@ class DrawerContent extends StatelessWidget {
     ]);
 
     Widget expanded = menuOption == this.currentMenuOption
-        ? Container(
-            decoration: BoxDecoration(
-                color: Color.fromRGBO(5, 247, 150, 0.2),
-                borderRadius: BorderRadius.circular(30.0)),
-            child: ListTile(
-              leading: Icon(iconData, size: 40),
-              title: Text(
-                EnumStrings.menuOptions[menuOption],
-                style: TextStyle(
-                  color: Color.fromRGBO(5, 247, 150, 1),
+        ? Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5.0),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Color.fromRGBO(5, 247, 150, 0.2),
+                  borderRadius: BorderRadius.circular(30.0)),
+              child: ListTile(
+                leading: Icon(iconData, size: 40),
+                title: Text(
+                  EnumStrings.menuOptions[menuOption],
+                  style: TextStyle(
+                    color: Color.fromRGBO(5, 247, 150, 1),
+                  ),
                 ),
               ),
             ),

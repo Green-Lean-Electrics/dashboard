@@ -21,6 +21,7 @@ class GraphqlAPI extends ApiService {
               name
               email
               householdId
+              profilePictureURL
               role
             }
             token
@@ -61,6 +62,7 @@ class GraphqlAPI extends ApiService {
               name
               email
               householdId
+              profilePictureURL
               role
             }
             token
@@ -104,6 +106,39 @@ class GraphqlAPI extends ApiService {
     _client.mutate(options);
 
     return AuthState(user: null, token: "", isAuthenticated: false);
+  }
+
+  @override
+  Future<User> updateProfile(String name, String email, String password) async {
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation updateUser($input: UpdateUserInput!) {
+          updateUser(input: $input) {
+            name
+            email
+            householdId
+            role
+            profilePictureURL
+          }
+        }
+      '''),
+      variables: <String, dynamic>{
+        'input': <String, dynamic>{
+          'name': name,
+          'email': email,
+          'password': password,
+        },
+      },
+    );
+
+    print(options.toString());
+    final QueryResult result = await _client.mutate(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
+
+    return User.fromJson(result.data['updateUser']);
   }
 }
 

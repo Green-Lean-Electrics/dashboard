@@ -1,16 +1,32 @@
+import 'package:dashboard/ui/widgets/charts/chart_title.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
-class LineChartSample2 extends StatefulWidget {
+class ElectricityChart extends StatefulWidget {
+  final double lastValue;
+
+  ElectricityChart({@required this.lastValue});
+
   @override
-  _LineChartSample2State createState() => _LineChartSample2State();
+  _ElectricityChartState createState() => _ElectricityChartState();
 }
 
-class _LineChartSample2State extends State<LineChartSample2> {
-  List<Color> gradientColors = [
+class _ElectricityChartState extends State<ElectricityChart> {
+  List<double> values = [0.0];
+
+  final List<Color> gradientColors = [
     Colors.pink,
     Colors.pink[300],
   ];
+
+  @override
+  void didUpdateWidget(ElectricityChart oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    values.add(widget.lastValue);
+    if (values.length > 15) {
+      values = values.sublist(1, 16);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,13 +38,19 @@ class _LineChartSample2State extends State<LineChartSample2> {
           top: 24,
           bottom: 12,
         ),
-        child: LayoutBuilder(
-          builder: (context, constraints) => ConstrainedBox(
-            constraints: BoxConstraints(minWidth: constraints.maxWidth),
-            child: LineChart(
-              mainData(),
+        child: Column(
+          children: <Widget>[
+            ChartTitle(title: 'Buffer load'),
+            Container(height: 20),
+            Expanded(
+              child: LayoutBuilder(builder: (context, constraints) {
+                return AspectRatio(
+                  aspectRatio: constraints.maxWidth / constraints.maxHeight,
+                  child: LineChart(mainData()),
+                );
+              }),
             ),
-          ),
+          ],
         ),
       ),
     );
@@ -105,15 +127,10 @@ class _LineChartSample2State extends State<LineChartSample2> {
       maxY: 6,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0, 3),
-            FlSpot(2.6, 2),
-            FlSpot(4.9, 5),
-            FlSpot(6.8, 3.1),
-            FlSpot(8, 4),
-            FlSpot(9.5, 3),
-            FlSpot(11, 4),
-          ],
+          spots: List.generate(
+            values.length,
+            (index) => FlSpot(index.toDouble(), values[index]),
+          ),
           isCurved: true,
           colors: gradientColors,
           barWidth: 5,

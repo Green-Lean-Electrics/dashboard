@@ -1,16 +1,16 @@
+import 'package:dashboard/core/redux/connectors/settings/settings_form.dart';
 import 'package:flutter/material.dart';
 
-class ProsumerSettingsView extends StatelessWidget {
+class ProsumerSettingsView extends StatefulWidget {
+  @override
+  _ProsumerSettingsViewState createState() => _ProsumerSettingsViewState();
+}
+
+class _ProsumerSettingsViewState extends State<ProsumerSettingsView> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: ListTile(
-        leading: Icon(Icons.settings, size: 40),
-        title: Text(
-          'Settings',
-          style: TextStyle(fontSize: 25, fontWeight: FontWeight.w200),
-        ),
-      ),
+      child: SettingsFormConnector(),
     );
   }
 }

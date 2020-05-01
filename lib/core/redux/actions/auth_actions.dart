@@ -28,9 +28,6 @@ class LoginAction extends ReduxAction<AppState> {
   }
 
   void after() => dispatch(SetLoadingAction(isLoading: false));
-
-  @override
-  Object wrapError(error) => UserException(error.toString(), cause: error);
 }
 
 class SignUpAction extends ReduxAction<AppState> {

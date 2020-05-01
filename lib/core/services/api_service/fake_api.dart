@@ -56,4 +56,17 @@ class FakeAPI implements ApiService {
       isAuthenticated: false,
     );
   }
+
+  @override
+  Future<User> updateProfile(String name, String email, String password) async {
+    await Future.delayed(Duration(seconds: 2));
+    return User(
+      name: name,
+      householdId: "",
+      email: email,
+      profilePictureURL:
+          "https://avatars1.githubusercontent.com/u/3115756?s=460&u=f2730d80135af68a86e4e68b5e3b3e7849bb3471&v=4",
+      role: UserRole.PROSUMER_ROLE,
+    );
+  }
 }
