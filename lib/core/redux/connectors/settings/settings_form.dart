@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/actions/settings_actions.dart';
@@ -22,7 +24,7 @@ class SettingsFormConnector extends StatelessWidget {
 class ViewModel extends BaseModel<AppState> {
   ViewModel();
   User currentUser;
-  Function(String, String, String) onProfileUpdate;
+  Function(String, String, String, Uint8List) onProfileUpdate;
   bool isLoading;
 
   ViewModel.build(
@@ -34,11 +36,12 @@ class ViewModel extends BaseModel<AppState> {
   @override
   BaseModel fromStore() => ViewModel.build(
         currentUser: state.authState.user,
-        onProfileUpdate: (name, email, password) => dispatch(
+        onProfileUpdate: (name, email, password, image) => dispatch(
           UpdateProfileAction(
             name: name,
             email: email,
             password: password,
+            image: image,
           ),
         ),
         isLoading: state.isLoading,

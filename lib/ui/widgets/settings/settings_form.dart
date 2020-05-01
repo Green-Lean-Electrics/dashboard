@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/utils/validators.dart';
 import 'package:dashboard/ui/shared/green_lean_icons.dart';
@@ -9,7 +11,7 @@ import 'package:flutter/material.dart';
 class SettingsForm extends StatefulWidget {
   final User currentUser;
   final bool isLoading;
-  final Function(String, String, String) onUserUpdated;
+  final Function(String, String, String, Uint8List) onUserUpdated;
 
   SettingsForm({
     Key key,
@@ -27,6 +29,7 @@ class _SettingsFormState extends State<SettingsForm> {
   String _name;
   String _email;
   String _password = '';
+  Uint8List _image;
 
   @override
   void initState() {
@@ -76,6 +79,7 @@ class _SettingsFormState extends State<SettingsForm> {
                             pictureURL:
                                 'https://pure-badlands-64215.herokuapp.com' +
                                     widget.currentUser.profilePictureURL,
+                            onImageUpdated: (image) => _image = image,
                           ),
                           Container(width: 170, height: 0),
                         ],
@@ -106,6 +110,7 @@ class _SettingsFormState extends State<SettingsForm> {
                         if (value.length != 0) {
                           return Validators.lengthValidator(value);
                         }
+                        return null;
                       },
                       onChange: (value) => _password = value,
                     ),
@@ -129,7 +134,7 @@ class _SettingsFormState extends State<SettingsForm> {
                 ),
                 widget.isLoading
                     ? Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.only(top: 40.0),
                         child: GreenLeanProgressIndicator(size: 40),
                       )
                     : Padding(
@@ -141,7 +146,12 @@ class _SettingsFormState extends State<SettingsForm> {
                           ),
                           onPressed: () {
                             if (_formKey.currentState.validate()) {
-                              widget.onUserUpdated(_name, _email, _password);
+                              widget.onUserUpdated(
+                                _name,
+                                _email,
+                                _password,
+                                _image,
+                              );
                             }
                           },
                           shape: RoundedRectangleBorder(

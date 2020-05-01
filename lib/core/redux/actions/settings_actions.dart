@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/actions/loading_action.dart';
 import 'package:dashboard/core/services/api_service/api_service.dart';
@@ -11,18 +12,20 @@ class UpdateProfileAction extends ReduxAction<AppState> {
   final String name;
   final String email;
   final String password;
+  final Uint8List image;
 
   UpdateProfileAction({
     @required this.name,
     @required this.email,
     @required this.password,
+    @required this.image,
   });
 
   @override
   Future<AppState> reduce() async {
     dispatch(SetLoadingAction(isLoading: true));
     ApiService api = locator<ApiService>();
-    User updatedUser = await api.updateProfile(name, email, password);
+    User updatedUser = await api.updateProfile(name, email, password, image);
 
     return state.copy(
       authState: state.authState.copy(

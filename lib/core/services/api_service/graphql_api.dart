@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/app_state.dart';
@@ -109,7 +113,21 @@ class GraphqlAPI extends ApiService {
   }
 
   @override
-  Future<User> updateProfile(String name, String email, String password) async {
+  Future<User> updateProfile(
+    String name,
+    String email,
+    String password,
+    Uint8List image,
+  ) async {
+    var multipartFile;
+    if (image != null) {
+      multipartFile = MultipartFile.fromBytes(
+        'picture',
+        image,
+        filename: '${DateTime.now().second}.jpg',
+        contentType: MediaType("image", "jpg"),
+      );
+    }
     final MutationOptions options = MutationOptions(
       documentNode: gql(r'''
         mutation updateUser($input: UpdateUserInput!) {
@@ -127,6 +145,7 @@ class GraphqlAPI extends ApiService {
           'name': name,
           'email': email,
           'password': password,
+          'picture': multipartFile,
         },
       },
     );

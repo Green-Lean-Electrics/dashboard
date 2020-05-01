@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:dashboard/core/enums/user_role.dart';
 import 'package:dashboard/core/models/user.dart';
@@ -58,7 +60,12 @@ class FakeAPI implements ApiService {
   }
 
   @override
-  Future<User> updateProfile(String name, String email, String password) async {
+  Future<User> updateProfile(
+    String name,
+    String email,
+    String password,
+    Uint8List image,
+  ) async {
     await Future.delayed(Duration(seconds: 2));
     return User(
       name: name,
