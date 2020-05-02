@@ -67,6 +67,7 @@ class SettingsField extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             _buildFieldInformation(CrossAxisAlignment.start),
+            Container(height: 20, width: 0),
             Container(
               width: 300,
               child: customField ?? textField,

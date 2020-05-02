@@ -150,7 +150,6 @@ class GraphqlAPI extends ApiService {
       },
     );
 
-    print(options.toString());
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
@@ -158,6 +157,22 @@ class GraphqlAPI extends ApiService {
     }
 
     return User.fromJson(result.data['updateUser']);
+  }
+
+  @override
+  Future<void> setHouseholdRatio(double newRatio) async {
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation setHouseholdRatio($newRatio: Float!){
+          setHouseholdRatio(newRatio: $newRatio)
+        }
+      '''),
+      variables: <String, dynamic>{'newRatio': newRatio},
+    );
+    final QueryResult result = await _client.mutate(options);
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }    
   }
 }
 

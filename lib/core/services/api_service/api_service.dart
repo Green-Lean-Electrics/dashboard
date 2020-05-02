@@ -19,4 +19,6 @@ abstract class ApiService {
     String password,
     Uint8List image,
   );
+
+  Future<void> setHouseholdRatio(double newRatio);
 }

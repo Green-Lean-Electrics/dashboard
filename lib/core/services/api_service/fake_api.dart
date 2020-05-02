@@ -76,4 +76,9 @@ class FakeAPI implements ApiService {
       role: UserRole.PROSUMER_ROLE,
     );
   }
+
+  @override
+  Future<void> setHouseholdRatio(double newRatio) async {
+    await Future.delayed(Duration(seconds: 2));
+  }
 }
