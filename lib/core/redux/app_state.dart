@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dashboard/core/enums/menu_options.dart';
 import 'package:dashboard/core/redux/state/auth_state.dart';
-import 'package:dashboard/core/utils/enum_strings.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 

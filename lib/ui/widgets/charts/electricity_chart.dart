@@ -1,3 +1,4 @@
+import 'package:dashboard/ui/responsive/screen_type_layout.dart';
 import 'package:dashboard/ui/widgets/charts/chart_title.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -23,8 +24,8 @@ class _ElectricityChartState extends State<ElectricityChart> {
   void didUpdateWidget(ElectricityChart oldWidget) {
     super.didUpdateWidget(oldWidget);
     values.add(widget.lastValue);
-    if (values.length > 15) {
-      values = values.sublist(1, 16);
+    if (values.length > 12) {
+      values = values.sublist(1, 13);
     }
   }
 
@@ -42,14 +43,13 @@ class _ElectricityChartState extends State<ElectricityChart> {
           children: <Widget>[
             ChartTitle(title: 'Buffer load'),
             Container(height: 20),
-            Expanded(
-              child: LayoutBuilder(builder: (context, constraints) {
-                return AspectRatio(
-                  aspectRatio: constraints.maxWidth / constraints.maxHeight,
-                  child: LineChart(mainData()),
-                );
-              }),
-            ),
+            Expanded(child: LayoutBuilder(builder: (context, constraints) {
+              return Container(
+                height: constraints.maxWidth,
+                width: constraints.maxWidth,
+                child: LineChart(mainData()),
+              );
+            }))
           ],
         ),
       ),

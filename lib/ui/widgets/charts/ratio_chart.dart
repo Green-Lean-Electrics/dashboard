@@ -1,3 +1,4 @@
+import 'package:dashboard/core/redux/connectors/misc/ratio_selector.dart';
 import 'package:dashboard/ui/widgets/charts/chart_title.dart';
 import 'package:dashboard/ui/widgets/charts/indicator.dart';
 import 'package:flutter/material.dart';
@@ -5,9 +6,9 @@ import 'package:pie_chart/pie_chart.dart';
 
 class RatioChart extends StatelessWidget {
   final double ratio;
-  final bool isLoading;
+  final bool isProsuming;
 
-  RatioChart({@required this.ratio, @required this.isLoading});
+  RatioChart({@required this.ratio, @required this.isProsuming});
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
@@ -17,7 +18,19 @@ class RatioChart extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            ChartTitle(title: 'Buffer - Market ratio'),
+            ChartTitle(
+              title: 'Buffer - Market ratio',
+              trailing: GestureDetector(
+                child: Icon(Icons.settings),
+                onTap: () => showDialog(
+                  context: context,
+                  builder: (context) => RatioSelectorConnector(
+                    isProsuming: isProsuming,
+                    currentRatio: ratio,
+                  ),
+                ),
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: PieChart(
@@ -49,17 +62,17 @@ class RatioChart extends StatelessWidget {
                 children: <Widget>[
                   Indicator(
                     color: Color.fromRGBO(5, 247, 150, 1),
-                    text: this.isLoading
-                     ? 'Selling to market'
-                     : 'Buying from market',
+                    text: this.isProsuming
+                        ? 'Selling to market'
+                        : 'Buying from market',
                     isSquare: false,
                   ),
                   Container(height: 6),
                   Indicator(
                     color: Colors.pink,
-                    text: this.isLoading
-                     ? 'Loading to buffer'
-                     : 'Consuming from buffer',
+                    text: this.isProsuming
+                        ? 'Loading to buffer'
+                        : 'Consuming from buffer',
                     isSquare: false,
                   ),
                 ],

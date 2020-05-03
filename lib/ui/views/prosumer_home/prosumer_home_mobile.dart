@@ -16,7 +16,10 @@ class ProsumerHomeMobile extends StatelessWidget {
         GaugePanel(homeData: homeData),
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: ElectricityChart(lastValue: homeData.electricityConsumption),
+          child: AspectRatio(
+            aspectRatio: 1,
+            child: ElectricityChart(lastValue: homeData.electricityConsumption),
+          ),
         ),
         AspectRatio(
           aspectRatio: 1.3,
@@ -24,7 +27,7 @@ class ProsumerHomeMobile extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: RatioChart(
               ratio: homeData.ratio,
-              isLoading: homeData.electricityProduction >
+              isProsuming: homeData.electricityProduction >
                   homeData.electricityConsumption,
             ),
           ),

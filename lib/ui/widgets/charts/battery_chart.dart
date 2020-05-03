@@ -18,7 +18,9 @@ class BatteryChart extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            ChartTitle(title: 'Buffer load'),
+            ChartTitle(
+              title: 'Buffer load'
+            ),
             Container(height: 20),
             Expanded(
               child: Padding(

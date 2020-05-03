@@ -44,7 +44,10 @@ class SettingsField extends StatelessWidget {
           children: <Widget>[
             Text(showDescription ? title : '',
                 style: TextStyle(fontWeight: FontWeight.bold)),
-            Text(showDescription ? description : ''),
+            Text(
+              showDescription ? description : '',
+              textAlign: TextAlign.right,
+            ),
           ],
         ),
       );
@@ -66,8 +69,8 @@ class SettingsField extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            _buildFieldInformation(CrossAxisAlignment.start),
-            Container(height: 20, width: 0),
+            // _buildFieldInformation(CrossAxisAlignment.start),
+            // Container(height: 20, width: 0),
             Container(
               width: 300,
               child: customField ?? textField,

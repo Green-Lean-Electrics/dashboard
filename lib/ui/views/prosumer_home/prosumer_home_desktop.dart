@@ -38,7 +38,7 @@ class ProsumerHomeDesktop extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: RatioChart(
                       ratio: homeData.ratio,
-                      isLoading: homeData.electricityProduction >
+                      isProsuming: homeData.electricityProduction >
                           homeData.electricityConsumption,
                     ),
                   ),

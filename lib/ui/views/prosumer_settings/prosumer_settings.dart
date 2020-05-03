@@ -15,8 +15,11 @@ class _ProsumerSettingsViewState extends State<ProsumerSettingsView> {
         child: SettingsFormConnector(),
       ),
       mobile: ListView(children: <Widget>[
-        Center(
-          child: SettingsFormConnector(),
+        Container(
+          color: Theme.of(context).cardColor,
+          child: Center(
+            child: SettingsFormConnector(),
+          ),
         )
       ]),
     );
