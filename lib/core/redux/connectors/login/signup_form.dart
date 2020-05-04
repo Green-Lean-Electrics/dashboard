@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:dashboard/core/enums/loading_locations.dart';
 import 'package:dashboard/core/redux/actions/auth_actions.dart';
 import 'package:dashboard/core/redux/app_state.dart';
 import 'package:dashboard/ui/widgets/login/signup_form.dart';
@@ -33,6 +34,8 @@ class ViewModel extends BaseModel<AppState> {
           password: password,
           coords: coords,
         )),
-        isLoading: state.isLoading,
+        isLoading: state.loadingLocations.contains(
+          LoadingLocations.SIGNUP_FORM,
+        ),
       );
 }

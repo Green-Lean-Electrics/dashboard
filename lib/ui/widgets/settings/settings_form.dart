@@ -141,7 +141,7 @@ class _SettingsFormState extends State<SettingsForm> {
                     child: GreenLeanProgressIndicator(size: 40),
                   )
                 : Padding(
-                    padding: const EdgeInsets.only(top: 40.0),
+                    padding: const EdgeInsets.only(top: 40.0, bottom: 20.0),
                     child: OutlineButton(
                       child: Text(
                         "SAVE CHANGES",

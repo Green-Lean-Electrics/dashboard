@@ -1,7 +1,10 @@
 import 'dart:convert';
 
+import 'package:dashboard/core/enums/loading_locations.dart';
 import 'package:dashboard/core/enums/menu_options.dart';
+import 'package:dashboard/core/models/my_gle_data.dart';
 import 'package:dashboard/core/redux/state/auth_state.dart';
+import 'package:flutter/foundation.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:meta/meta.dart';
 
@@ -11,32 +14,40 @@ part 'app_state.g.dart';
 @immutable
 class AppState {
   final AuthState authState;
-  final bool isLoading;
+  final Set<LoadingLocations> loadingLocations;
   final MenuOption menuOption;
+  final MyGLEData myGLEData;
 
   AppState({
     @required this.authState,
-    @required this.isLoading,
+    @required this.loadingLocations,
     @required this.menuOption,
+    @required this.myGLEData,
   });
 
-  AppState copy({AuthState authState, bool isLoading, MenuOption menuOption}) {
+  AppState copy({
+    AuthState authState,
+    Set<LoadingLocations> loadingLocations,
+    MenuOption menuOption,
+    MyGLEData myGLEData,
+  }) {
     return AppState(
       authState: authState ?? this.authState,
-      isLoading: isLoading ?? this.isLoading,
+      loadingLocations: loadingLocations ?? this.loadingLocations,
       menuOption: menuOption ?? this.menuOption,
+      myGLEData: myGLEData ?? this.myGLEData,
     );
   }
 
   static AppState initialAppState() => AppState(
-        authState: AuthState(
-          user: null,
-          token: null,
-          isAuthenticated: false,
-        ),
-        isLoading: false,
-        menuOption: MenuOption.PROSUMER_HOME,
-      );
+      authState: AuthState(
+        user: null,
+        token: null,
+        isAuthenticated: false,
+      ),
+      loadingLocations: {},
+      menuOption: MenuOption.PROSUMER_HOME,
+      myGLEData: null);
 
   @override
   String toString() {
@@ -46,15 +57,19 @@ class AppState {
 
   @override
   int get hashCode =>
-      authState.hashCode ^ isLoading.hashCode ^ menuOption.hashCode;
+      authState.hashCode ^
+      loadingLocations.hashCode ^
+      menuOption.hashCode ^
+      myGLEData.hashCode;
 
   @override
   bool operator ==(other) =>
       identical(this, other) ||
       (other is AppState &&
           this.authState == other.authState &&
-          this.isLoading == other.isLoading &&
-          this.menuOption == other.menuOption);
+          setEquals(this.loadingLocations, other.loadingLocations) &&
+          this.menuOption == other.menuOption &&
+          this.myGLEData == other.myGLEData);
 
   factory AppState.fromJson(Map<String, dynamic> json) =>
       _$AppStateFromJson(json);

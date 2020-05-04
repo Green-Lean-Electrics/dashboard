@@ -1,7 +1,9 @@
 import 'dart:typed_data';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:dashboard/core/enums/my_gle_picture_kind.dart';
 import 'package:dashboard/core/enums/user_role.dart';
+import 'package:dashboard/core/models/my_gle_data.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/state/auth_state.dart';
 import 'package:dashboard/core/services/api_service/api_service.dart';
@@ -80,5 +82,25 @@ class FakeAPI implements ApiService {
   @override
   Future<void> setHouseholdRatio(double newRatio) async {
     await Future.delayed(Duration(seconds: 2));
+  }
+
+  @override
+  Future<MyGLEData> fetchMyGLEData(String householdId) async {
+    await Future.delayed(Duration(seconds: 2));
+    return MyGLEData(
+      frontPictureURL:
+          'https://nitrocdn.com/OKfOZtnsuRztvuLgtZmxNVCzEpuOmcFt/assets/static/optimized/rev-4a0c718/wp-content/uploads/2019/03/Best-Home-Wind-Turbine-KiT.jpg',
+      backPictureURL:
+          'https://nitrocdn.com/OKfOZtnsuRztvuLgtZmxNVCzEpuOmcFt/assets/static/optimized/rev-4a0c718/wp-content/uploads/2019/03/Best-Home-Wind-Turbine-KiT.jpg',
+      xCoord: 65.621653,
+      yCoord: 22.119347,
+    );
+  }
+
+  @override
+  Future<String> uploadMyGLEPicture(
+      Uint8List picture, MyGLEPictureKind pictureKind) async {
+    await Future.delayed(Duration(seconds: 2));
+    return 'https://nitrocdn.com/OKfOZtnsuRztvuLgtZmxNVCzEpuOmcFt/assets/static/optimized/rev-4a0c718/wp-content/uploads/2019/03/Best-Home-Wind-Turbine-KiT.jpg';
   }
 }

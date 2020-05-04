@@ -1,4 +1,6 @@
 import 'dart:typed_data';
+import 'package:dashboard/core/enums/my_gle_picture_kind.dart';
+import 'package:dashboard/core/models/my_gle_data.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 
@@ -32,6 +34,7 @@ class GraphqlAPI extends ApiService {
           }
         }
       '''),
+      fetchPolicy: FetchPolicy.noCache,
       variables: <String, dynamic>{
         'email': email,
         'password': password,
@@ -73,6 +76,7 @@ class GraphqlAPI extends ApiService {
           }
         }
       '''),
+      fetchPolicy: FetchPolicy.noCache,
       variables: <String, dynamic>{
         'input': <String, dynamic>{
           'name': name,
@@ -105,6 +109,7 @@ class GraphqlAPI extends ApiService {
           logout
         }
       '''),
+      fetchPolicy: FetchPolicy.noCache,
     );
 
     _client.mutate(options);
@@ -140,6 +145,7 @@ class GraphqlAPI extends ApiService {
           }
         }
       '''),
+      fetchPolicy: FetchPolicy.noCache,
       variables: <String, dynamic>{
         'input': <String, dynamic>{
           'name': name,
@@ -167,12 +173,84 @@ class GraphqlAPI extends ApiService {
           setHouseholdRatio(newRatio: $newRatio)
         }
       '''),
+      fetchPolicy: FetchPolicy.noCache,
       variables: <String, dynamic>{'newRatio': newRatio},
     );
     final QueryResult result = await _client.mutate(options);
     if (result.hasException) {
       throw UserException(result.exception.toString());
-    }    
+    }
+  }
+
+  @override
+  Future<MyGLEData> fetchMyGLEData(String householdId) async {
+    final QueryOptions options = QueryOptions(
+      documentNode: gql(r'''
+        query House($id: String!){
+          house(id: $id){
+            frontPictureURL,
+            backPictureURL,
+            coords{
+              x
+              y
+            }
+          }
+        }
+      '''),
+      fetchPolicy: FetchPolicy.noCache,
+      variables: <String, dynamic>{
+        'id': householdId,
+      },
+    );
+
+    final QueryResult result = await _client.query(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
+
+    
+
+    return MyGLEData(
+      frontPictureURL: result.data['house']['frontPictureURL'],
+      backPictureURL: result.data['house']['backPictureURL'],
+      xCoord: result.data['house']['coords']['x'],
+      yCoord: result.data['house']['coords']['y'],
+    );
+  }
+
+  @override
+  Future<String> uploadMyGLEPicture(
+    Uint8List picture,
+    MyGLEPictureKind pictureKind,
+  ) async {
+    var multipartFile = MultipartFile.fromBytes(
+      'picture',
+      picture,
+      filename: '${DateTime.now().second}.jpg',
+      contentType: MediaType("image", "jpg"),
+    );
+
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation uploadHouseholdPicture($picture: Upload!,  $kind: String!){
+          uploadHouseholdPicture(picture: $picture, pictureKind: $kind)
+        }
+      '''),
+      fetchPolicy: FetchPolicy.noCache,
+      variables: <String, dynamic>{
+        'picture': multipartFile,
+        'kind': pictureKind.toString().split('.').last,
+      },
+    );
+
+    final QueryResult result = await _client.mutate(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
+
+    return result.data['uploadHouseholdPicture'];
   }
 }
 

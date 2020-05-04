@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
+import 'package:dashboard/core/enums/loading_locations.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/actions/loading_action.dart';
 import 'package:dashboard/core/services/api_service/api_service.dart';
@@ -23,7 +24,9 @@ class UpdateProfileAction extends ReduxAction<AppState> {
 
   @override
   Future<AppState> reduce() async {
-    dispatch(SetLoadingAction(isLoading: true));
+    dispatch(
+      StartLoadingAction(loadingLocation: LoadingLocations.SETTINGS_FORM),
+    );
     ApiService api = locator<ApiService>();
     User updatedUser = await api.updateProfile(name, email, password, image);
 
@@ -34,5 +37,7 @@ class UpdateProfileAction extends ReduxAction<AppState> {
     );
   }
 
-  void after() => dispatch(SetLoadingAction(isLoading: false));
+  void after() => dispatch(
+        EndLoadingAction(loadingLocation: LoadingLocations.SETTINGS_FORM),
+      );
 }

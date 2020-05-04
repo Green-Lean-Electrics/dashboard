@@ -27,7 +27,7 @@ class DrawerContent extends StatelessWidget {
             children: <Widget>[
               buildAvatar(),
               buildTile(context, MenuOption.PROSUMER_HOME, Icons.dashboard),
-              buildTile(context, MenuOption.PROSUMER_MY_GLE, Icons.build),
+              buildTile(context, MenuOption.PROSUMER_MY_GLE, GreenLean.turbine),
               buildTile(context, MenuOption.PROSUMER_SETTINGS, Icons.settings),
             ],
           ),
@@ -38,7 +38,8 @@ class DrawerContent extends StatelessWidget {
   }
 
   Widget buildAvatar() {
-    String pictureURL = 'https://pure-badlands-64215.herokuapp.com' + user.profilePictureURL;
+    String pictureURL =
+        'https://pure-badlands-64215.herokuapp.com' + user.profilePictureURL;
     Widget reduced = Column(
       children: <Widget>[
         Container(height: 30),

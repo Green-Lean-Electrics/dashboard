@@ -1,5 +1,7 @@
 import 'dart:typed_data';
 
+import 'package:dashboard/core/enums/my_gle_picture_kind.dart';
+import 'package:dashboard/core/models/my_gle_data.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/state/auth_state.dart';
 import 'package:latlong/latlong.dart';
@@ -19,6 +21,7 @@ abstract class ApiService {
     String password,
     Uint8List image,
   );
-
   Future<void> setHouseholdRatio(double newRatio);
+  Future<MyGLEData> fetchMyGLEData(String householdId);
+  Future<String> uploadMyGLEPicture(Uint8List picture, MyGLEPictureKind pictureKind);
 }

@@ -1,5 +1,5 @@
+import 'package:dashboard/core/redux/connectors/my_gle/my_gle.dart';
 import 'package:dashboard/core/redux/connectors/prosumer_home.dart';
-import 'package:dashboard/ui/views/prosumer_my_gle/prosumer_my_gle.dart';
 import 'package:dashboard/ui/views/prosumer_settings/prosumer_settings.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class Router {
       case HOME_ROUTE:
         return _getPageRoute(ProsumerHomeViewConnector());
       case MY_GLE_ROUTE:
-        return _getPageRoute(ProsumerMyGLEView());
+        return _getPageRoute(ProsumerMyGLEViewConnector());
       case SETTINGS_ROUTE:
         return _getPageRoute(ProsumerSettingsView());
       default:

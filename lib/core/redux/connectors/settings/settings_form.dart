@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:dashboard/core/enums/loading_locations.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/redux/actions/settings_actions.dart';
 import 'package:dashboard/core/redux/app_state.dart';
@@ -44,6 +45,8 @@ class ViewModel extends BaseModel<AppState> {
             image: image,
           ),
         ),
-        isLoading: state.isLoading,
+        isLoading: state.loadingLocations.contains(
+          LoadingLocations.SETTINGS_FORM,
+        ),
       );
 }
