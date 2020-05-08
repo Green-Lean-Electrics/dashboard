@@ -1,17 +1,42 @@
+import 'dart:convert';
+
+import 'package:dashboard/core/models/home_data.dart';
+import 'package:dashboard/ui/widgets/customers/mini_gauge_panel.dart';
 import 'package:flutter/material.dart';
+import 'package:web_socket_channel/html.dart';
 
-class DeleteDialog extends StatelessWidget {
+class ProsumerSystemDialog extends StatefulWidget {
   final String username;
-  final String userEmail;
+  final String householdId;
+  final String token;
 
-  DeleteDialog({
+  ProsumerSystemDialog({
     @required this.username,
-    @required this.userEmail,
+    @required this.householdId,
+    @required this.token,
   });
 
   @override
+  _ProsumerSystemDialogState createState() => _ProsumerSystemDialogState();
+}
+
+class _ProsumerSystemDialogState extends State<ProsumerSystemDialog> {
+  final channel = HtmlWebSocketChannel.connect(
+    "wss://pure-badlands-64215.herokuapp.com",
+  );
+
+  @override
+  void initState() {
+    Map<String, dynamic> authObject = {
+      'householdId': widget.householdId,
+      'token': widget.token,
+    };
+    channel.sink.add(json.encode(authObject));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    var mediaQuery = MediaQuery.of(context);
     return AlertDialog(
       backgroundColor: Theme.of(context).cardColor,
       shape: RoundedRectangleBorder(
@@ -20,21 +45,18 @@ class DeleteDialog extends StatelessWidget {
         ),
       ),
       title: Text(
-        username + '\'s system ',
+        widget.username + '\'s system',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
-      content: Container(
-        width:
-            mediaQuery.size.width > 900 ? mediaQuery.size.width * 0.25 : null,
-        child: Text(
-          'Are you sure about deleting ' +
-              username +
-              '\'s account? This process can not be undone. '
-                  'All de data regarding ' +
-              username +
-              '\'s account will be deleted from GLE\'s systems',
-          style: TextStyle(fontSize: 20),
-        ),
+      content: StreamBuilder(
+        stream: channel.stream,
+        builder: (builder, snapshot) {
+          HomeData homeData = snapshot.hasData
+              ? HomeData.fromJson(json.decode(snapshot.data))
+              : HomeData.emptyData();
+
+          return MiniGaugePanel(homeData: homeData);
+        },
       ),
       actions: <Widget>[
         Padding(

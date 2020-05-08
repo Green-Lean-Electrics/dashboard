@@ -46,6 +46,7 @@ class ManagerCustomerView extends StatelessWidget {
         mobile: ListView.builder(
           itemCount: customers.length,
           itemBuilder: (context, index) => CustomerTile(
+            token: token,
             customer: customers[index],
             onCustomerDelete: onCustomerDeleted,
           ),
@@ -53,6 +54,7 @@ class ManagerCustomerView extends StatelessWidget {
         tablet: ListView.builder(
           itemCount: customers.length,
           itemBuilder: (context, index) => CustomerTile(
+            token: token,
             onCustomerDelete: onCustomerDeleted,
             customer: customers[index],
           ),
@@ -63,6 +65,7 @@ class ManagerCustomerView extends StatelessWidget {
           children: List.generate(
             customers.length,
             (index) => CustomerTile(
+              token: token,
               onCustomerDelete: onCustomerDeleted,
               customer: customers[index],
             ),

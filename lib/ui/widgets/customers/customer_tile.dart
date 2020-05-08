@@ -1,19 +1,25 @@
 import 'package:dashboard/core/models/user.dart';
+import 'package:dashboard/core/utils/date_utils.dart';
 import 'package:dashboard/ui/widgets/customers/blocking_dialog.dart';
 import 'package:dashboard/ui/widgets/customers/delete_dialog.dart';
+import 'package:dashboard/ui/widgets/customers/prosumer_dialog.dart';
 import 'package:flutter/material.dart';
 
 class CustomerTile extends StatelessWidget {
   final User customer;
+  final String token;
   final Function(String) onCustomerDelete;
 
   CustomerTile({
     @required this.customer,
+    @required this.token,
     @required this.onCustomerDelete,
   });
 
   @override
   Widget build(BuildContext context) {
+    Duration timeAgo = DateTime.now().difference(customer.getLastSeen());
+    bool isOffline = timeAgo > Duration(minutes: 3);
     return Card(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
@@ -42,7 +48,7 @@ class CustomerTile extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 8.0),
                       child: Container(
                         decoration: BoxDecoration(
-                          color: false
+                          color: isOffline
                               ? Colors.pink.withOpacity(0.3)
                               : Color.fromRGBO(5, 247, 150, 0.2),
                           borderRadius: BorderRadius.circular(30.0),
@@ -51,13 +57,15 @@ class CustomerTile extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(
                               horizontal: 12.0, vertical: 6.0),
                           child: Text(
-                            false ? '3h ago' : 'ONLINE',
+                            isOffline
+                                ? DateUtils.getTimeAgo(timeAgo)
+                                : 'ONLINE',
                             style: TextStyle(
-                                color: false
+                                color: isOffline
                                     ? Colors.pink
                                     : Color.fromRGBO(5, 247, 150, 1),
                                 fontWeight: FontWeight.bold,
-                                fontSize: 10),
+                                fontSize: 13),
                           ),
                         ),
                       ),
@@ -83,7 +91,13 @@ class CustomerTile extends StatelessWidget {
               IconButton(
                 hoverColor: Color.fromRGBO(5, 247, 150, 0.2),
                 icon: Icon(Icons.remove_red_eye, size: 30),
-                onPressed: () {},
+                onPressed: () => showDialog(
+                    context: context,
+                    builder: (context) => ProsumerSystemDialog(
+                          username: customer.name,
+                          householdId: customer.householdId,
+                          token: token,
+                        )),
                 tooltip: 'See prosumer\'s system system',
               ),
               IconButton(

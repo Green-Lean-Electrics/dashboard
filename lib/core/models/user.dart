@@ -13,6 +13,7 @@ class User {
   final String profilePictureURL;
   final String householdId;
   final UserRole role;
+  final String lastSeen;
 
   User({
     @required this.name,
@@ -20,7 +21,12 @@ class User {
     @required this.profilePictureURL,
     @required this.householdId,
     @required this.role,
+    this.lastSeen,
   });
+
+  DateTime getLastSeen() {
+    return DateTime.fromMillisecondsSinceEpoch(int.parse(lastSeen));
+  }
 
   @override
   String toString() {
@@ -39,7 +45,8 @@ class User {
           this.email == other.email &&
           this.profilePictureURL == other.profilePictureURL &&
           this.householdId == other.householdId &&
-          this.role == other.role);
+          this.role == other.role &&
+          this.lastSeen == other.lastSeen);
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 

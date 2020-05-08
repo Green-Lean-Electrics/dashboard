@@ -262,6 +262,7 @@ class GraphqlAPI extends ApiService {
             householdId
             role
             profilePictureURL
+            lastSeen
           }
         }
       '''),

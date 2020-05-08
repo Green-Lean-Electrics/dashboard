@@ -23,8 +23,9 @@ class ProsumerHomeView extends StatefulWidget {
 }
 
 class _ProsumerHomeViewState extends State<ProsumerHomeView> {
-  final channel =
-      HtmlWebSocketChannel.connect("wss://pure-badlands-64215.herokuapp.com");
+  final channel = HtmlWebSocketChannel.connect(
+    "wss://pure-badlands-64215.herokuapp.com",
+  );
 
   @override
   void initState() {
