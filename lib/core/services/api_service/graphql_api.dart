@@ -209,8 +209,6 @@ class GraphqlAPI extends ApiService {
       throw UserException(result.exception.toString());
     }
 
-    
-
     return MyGLEData(
       frontPictureURL: result.data['house']['frontPictureURL'],
       backPictureURL: result.data['house']['backPictureURL'],
@@ -251,6 +249,79 @@ class GraphqlAPI extends ApiService {
     }
 
     return result.data['uploadHouseholdPicture'];
+  }
+
+  @override
+  Future<List<User>> fetchUsers() async {
+    final QueryOptions options = QueryOptions(
+      documentNode: gql(r'''
+        query Users{
+          users{
+            name
+            email
+            householdId
+            role
+            profilePictureURL
+          }
+        }
+      '''),
+      fetchPolicy: FetchPolicy.cacheAndNetwork,
+    );
+
+    final QueryResult result = await _client.query(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
+
+    return (result.data['users']).map<User>(
+      (element) {
+        return User.fromJson(element);
+      },
+    ).toList();
+  }
+
+  @override
+  Future<void> deleteCustomer(String customerEmail) async {
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation deleteUser($email: String!){
+          deleteUser(userEmail: $email)
+        }
+      '''),
+      fetchPolicy: FetchPolicy.noCache,
+      variables: <String, dynamic>{
+        'email': customerEmail,
+      },
+    );
+
+    final QueryResult result = await _client.mutate(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
+  }
+
+  @override
+  Future<void> blockSelling(String householdId, int seconds) async {
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation blockSelling($id: String!, $seconds: Int!){
+            blockSelling(id: $id, seconds: $seconds)
+          }
+      '''),
+      fetchPolicy: FetchPolicy.noCache,
+      variables: <String, dynamic>{
+        'id': householdId,
+        'seconds': seconds,
+      },
+    );
+
+    final QueryResult result = await _client.mutate(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
   }
 }
 

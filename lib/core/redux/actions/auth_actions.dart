@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:dashboard/core/enums/loading_locations.dart';
+import 'package:dashboard/core/enums/menu_options.dart';
+import 'package:dashboard/core/enums/user_role.dart';
 import 'package:meta/meta.dart';
 import 'package:dashboard/core/redux/actions/loading_action.dart';
 import 'package:dashboard/core/redux/state/auth_state.dart';
@@ -9,7 +11,6 @@ import 'package:dashboard/core/redux/app_state.dart';
 
 import 'package:latlong/latlong.dart';
 import 'package:async_redux/async_redux.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginAction extends ReduxAction<AppState> {
   final String email;
@@ -26,7 +27,15 @@ class LoginAction extends ReduxAction<AppState> {
     ApiService api = locator<ApiService>();
     AuthState authState = await api.login(this.email, this.password);
 
-    return state.copy(authState: authState);
+    MenuOption menuOption = authState.user.role == UserRole.PROSUMER_ROLE
+            ? MenuOption.PROSUMER_HOME
+            : MenuOption.MANAGER_GRID;
+
+    print('Seleccionada MO ' + menuOption.toString());
+
+    return state.copy(
+        authState: authState,
+        menuOption: menuOption);
   }
 
   void after() =>
@@ -52,7 +61,15 @@ class SignUpAction extends ReduxAction<AppState> {
     ApiService api = locator<ApiService>();
     AuthState authState = await api.signUp(name, email, password, coords);
 
-    return state.copy(authState: authState);
+    MenuOption menuOption = authState.user.role == UserRole.PROSUMER_ROLE
+            ? MenuOption.PROSUMER_HOME
+            : MenuOption.MANAGER_GRID;
+
+    print('Seleccionada MO ' + menuOption.toString());
+
+    return state.copy(
+        authState: authState,
+        menuOption: menuOption);
   }
 
   void after() =>

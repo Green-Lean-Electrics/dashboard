@@ -18,6 +18,10 @@ AppState _$AppStateFromJson(Map<String, dynamic> json) {
     myGLEData: json['myGLEData'] == null
         ? null
         : MyGLEData.fromJson(json['myGLEData'] as Map<String, dynamic>),
+    customers: (json['customers'] as List)
+        ?.map(
+            (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -28,6 +32,7 @@ Map<String, dynamic> _$AppStateToJson(AppState instance) => <String, dynamic>{
           ?.toList(),
       'menuOption': _$MenuOptionEnumMap[instance.menuOption],
       'myGLEData': instance.myGLEData,
+      'customers': instance.customers,
     };
 
 T _$enumDecode<T>(
@@ -74,5 +79,7 @@ const _$LoadingLocationsEnumMap = {
 const _$MenuOptionEnumMap = {
   MenuOption.PROSUMER_HOME: 'PROSUMER_HOME',
   MenuOption.PROSUMER_MY_GLE: 'PROSUMER_MY_GLE',
-  MenuOption.PROSUMER_SETTINGS: 'PROSUMER_SETTINGS',
+  MenuOption.SETTINGS: 'SETTINGS',
+  MenuOption.MANAGER_GRID: 'MANAGER_GRID',
+  MenuOption.MANAGER_GLE_USERS: 'MANAGER_GLE_USERS',
 };

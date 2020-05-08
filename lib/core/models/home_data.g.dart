@@ -15,6 +15,7 @@ HomeData _$HomeDataFromJson(Map<String, dynamic> json) {
     bufferLoad: (json['bufferLoad'] as num)?.toDouble(),
     ratio: (json['ratio'] as num)?.toDouble(),
     failure: json['failure'] as bool,
+    isSellingBlocked: json['isSellingBlocked'] as bool,
   );
 }
 
@@ -25,5 +26,6 @@ Map<String, dynamic> _$HomeDataToJson(HomeData instance) => <String, dynamic>{
       'electricityProduction': instance.electricityProduction,
       'bufferLoad': instance.bufferLoad,
       'ratio': instance.ratio,
+      'isSellingBlocked': instance.isSellingBlocked,
       'failure': instance.failure,
     };

@@ -57,6 +57,7 @@ class UploadMyGLEPictureAction extends ReduxAction<AppState> {
           myGLEData: state.myGLEData.copy(backPictureURL: newUrl),
         );
     }
+    return null;
   }
 
   void after() {

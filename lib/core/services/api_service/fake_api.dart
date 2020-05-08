@@ -103,4 +103,42 @@ class FakeAPI implements ApiService {
     await Future.delayed(Duration(seconds: 2));
     return 'https://nitrocdn.com/OKfOZtnsuRztvuLgtZmxNVCzEpuOmcFt/assets/static/optimized/rev-4a0c718/wp-content/uploads/2019/03/Best-Home-Wind-Turbine-KiT.jpg';
   }
+
+  @override
+  Future<List<User>> fetchUsers() async {
+    await Future.delayed(Duration(seconds: 2));
+    return [
+      User(
+        name: 'Bob Dylan',
+        email: 'dylan@bob.com',
+        profilePictureURL: "https://lh3.googleusercontent.com/proxy/1xqT7FulCulpoRPUqP0JHE21Xop0jI0ch_NdsPY33gxo4pidUBERXXEKKfyUk-5_1-QfUwBuQyZSbaMJWKT02AwX2Bs4pGDdab9g5FlQdsskuiLKeHAJog",
+        householdId: "",
+        role: UserRole.PROSUMER_ROLE,
+      ),
+      User(
+        name: 'Albert Einstein',
+        email: 'einstein@ltu.se',
+        profilePictureURL: "https://www.lavanguardia.com/r/GODO/LV/p7/WebSite/2020/04/18/Recortada/LV_20150906_LV_FOTOS_D_54435137640-kZSH--656x841@LaVanguardia-Web.jpg",
+        householdId: "",
+        role: UserRole.PROSUMER_ROLE,
+      ),
+      User(
+        name: 'Roy Orbison',
+        email: 'booking@orbison.com',
+        profilePictureURL: "https://1.bp.blogspot.com/-tWU0BTPXGLs/T5VV4NWeG3I/AAAAAAAALwk/taE5g9Cn4IU/s1600/david-redfern-21.jpg",
+        householdId: "",
+        role: UserRole.PROSUMER_ROLE,
+      )
+    ];
+  }
+
+  @override
+  Future<void> deleteCustomer(String customerEmail) async{
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  @override
+  Future<void> blockSelling(String householdId, int seconds) async {
+    await Future.delayed(Duration(seconds: 2));
+  }
 }

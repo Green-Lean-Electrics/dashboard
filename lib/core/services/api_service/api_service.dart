@@ -7,6 +7,8 @@ import 'package:dashboard/core/redux/state/auth_state.dart';
 import 'package:latlong/latlong.dart';
 
 abstract class ApiService {
+  // COMMON API CALLS
+
   Future<AuthState> login(String email, String password);
   Future<AuthState> signUp(
     String name,
@@ -21,7 +23,17 @@ abstract class ApiService {
     String password,
     Uint8List image,
   );
+
+  // PROSUMER API CALLLS
+
   Future<void> setHouseholdRatio(double newRatio);
   Future<MyGLEData> fetchMyGLEData(String householdId);
-  Future<String> uploadMyGLEPicture(Uint8List picture, MyGLEPictureKind pictureKind);
+  Future<String> uploadMyGLEPicture(
+      Uint8List picture, MyGLEPictureKind pictureKind);
+
+  // MANAGER API CALLS
+
+  Future<List<User>> fetchUsers();
+  Future<void> deleteCustomer(String customerEmail);
+  Future<void> blockSelling(String householdId, int seconds);
 }

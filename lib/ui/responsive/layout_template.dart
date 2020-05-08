@@ -10,6 +10,10 @@ import 'package:flutter/material.dart';
 
 class LayoutTemplate extends StatelessWidget {
   final navigatorKey = locator<NavigationService>();
+  final String initialRoute;
+
+  LayoutTemplate({@required this.initialRoute});
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,11 +58,12 @@ class LayoutTemplate extends StatelessWidget {
                 mobile: Container(),
               ),
               Expanded(
-                  child: Navigator(
-                initialRoute: Router.HOME_ROUTE,
-                onGenerateRoute: Router.generateRoute,
-                key: navigatorKey.navigatorKey,
-              ))
+                child: Navigator(
+                  initialRoute: initialRoute,
+                  onGenerateRoute: Router.generateRoute,
+                  key: navigatorKey.navigatorKey,
+                ),
+              )
             ],
           ),
         ),

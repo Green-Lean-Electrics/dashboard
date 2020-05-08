@@ -1,5 +1,7 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:dashboard/core/enums/menu_options.dart';
 import 'package:dashboard/core/redux/app_state.dart';
+import 'package:dashboard/core/utils/enum_strings.dart';
 import 'package:dashboard/ui/responsive/layout_template.dart';
 import 'package:dashboard/ui/views/login/login_view.dart';
 import 'package:flutter/material.dart';
@@ -8,18 +10,19 @@ class AuthEnsurer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return UserExceptionDialog<AppState>(
-      child: StoreConnector<AppState, bool>(
-          converter: (store) => store.state.authState.isAuthenticated,
-          distinct: true,
-          builder: (context, isAuthenticated) {
-            if (!isAuthenticated) {
+      child: StoreConnector<AppState, ViewModel>(
+          model: ViewModel(),
+          builder: (context, model) {
+            if (!model.isAuthenticated) {
               return Navigator(
                   initialRoute: '/',
                   onGenerateRoute: (_) => MaterialPageRoute(
                         builder: (context) => LoginView(),
                       ));
             }
-            return LayoutTemplate();
+            return LayoutTemplate(
+              initialRoute: EnumStrings.menuRoutes[model.currentMenuOption],
+            );
           }),
       onShowUserExceptionDialog: (
         BuildContext context,
@@ -49,4 +52,21 @@ class AuthEnsurer extends StatelessWidget {
       ),
     );
   }
+}
+
+class ViewModel extends BaseModel<AppState> {
+  ViewModel();
+  MenuOption currentMenuOption;
+  bool isAuthenticated;
+
+  ViewModel.build({
+    @required this.currentMenuOption,
+    @required this.isAuthenticated,
+  }) : super(equals: [isAuthenticated]);
+
+  @override
+  BaseModel fromStore() => ViewModel.build(
+        currentMenuOption: state.menuOption,
+        isAuthenticated: state.authState.isAuthenticated,
+      );
 }

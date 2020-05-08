@@ -1,4 +1,5 @@
 import 'package:dashboard/core/enums/menu_options.dart';
+import 'package:dashboard/core/enums/user_role.dart';
 import 'package:dashboard/core/models/user.dart';
 import 'package:dashboard/core/services/navigation_service.dart';
 import 'package:dashboard/core/utils/enum_strings.dart';
@@ -26,9 +27,8 @@ class DrawerContent extends StatelessWidget {
           child: Column(
             children: <Widget>[
               buildAvatar(),
-              buildTile(context, MenuOption.PROSUMER_HOME, Icons.dashboard),
-              buildTile(context, MenuOption.PROSUMER_MY_GLE, GreenLean.turbine),
-              buildTile(context, MenuOption.PROSUMER_SETTINGS, Icons.settings),
+              ...buildMenuOptions(context, user.role),
+              buildTile(context, MenuOption.SETTINGS, Icons.settings),
             ],
           ),
         ),
@@ -37,40 +37,20 @@ class DrawerContent extends StatelessWidget {
     );
   }
 
-  Widget buildAvatar() {
-    String pictureURL =
-        'https://pure-badlands-64215.herokuapp.com' + user.profilePictureURL;
-    Widget reduced = Column(
-      children: <Widget>[
-        Container(height: 30),
-        CircleAvatar(
-          radius: 20.0,
-          backgroundImage: NetworkImage(pictureURL),
-          backgroundColor: Colors.transparent,
-        ),
-      ],
-    );
-    Widget expanded = Column(
-      children: <Widget>[
-        Container(height: 30),
-        ListTile(
-          leading: CircleAvatar(
-            radius: 30.0,
-            backgroundImage: NetworkImage(pictureURL),
-            backgroundColor: Colors.transparent,
-          ),
-          title: Text(user.name),
-          subtitle: Text(user.email),
-        ),
-        Divider(),
-      ],
-    );
-
-    return ScreenTypeLayout(
-      mobile: expanded,
-      tablet: reduced,
-      desktop: expanded,
-    );
+  List<Widget> buildMenuOptions(BuildContext context, UserRole role) {
+    switch (role) {
+      case UserRole.PROSUMER_ROLE:
+        return [
+          buildTile(context, MenuOption.PROSUMER_HOME, Icons.dashboard),
+          buildTile(context, MenuOption.PROSUMER_MY_GLE, GreenLean.turbine),
+        ];
+      case UserRole.MANAGER_ROLE:
+        return [
+          buildTile(context, MenuOption.MANAGER_GRID, Icons.grid_on),
+          buildTile(context, MenuOption.MANAGER_GLE_USERS, Icons.people),
+        ];
+    }
+    return [];
   }
 
   Widget buildTile(
@@ -124,6 +104,42 @@ class DrawerContent extends StatelessWidget {
         tablet: reduced,
         desktop: expanded,
       ),
+    );
+  }
+
+  Widget buildAvatar() {
+    String pictureURL =
+        'https://pure-badlands-64215.herokuapp.com' + user.profilePictureURL;
+    Widget reduced = Column(
+      children: <Widget>[
+        Container(height: 30),
+        CircleAvatar(
+          radius: 20.0,
+          backgroundImage: NetworkImage(pictureURL),
+          backgroundColor: Colors.transparent,
+        ),
+      ],
+    );
+    Widget expanded = Column(
+      children: <Widget>[
+        Container(height: 30),
+        ListTile(
+          leading: CircleAvatar(
+            radius: 30.0,
+            backgroundImage: NetworkImage(pictureURL),
+            backgroundColor: Colors.transparent,
+          ),
+          title: Text(user.name),
+          subtitle: Text(user.email),
+        ),
+        Divider(),
+      ],
+    );
+
+    return ScreenTypeLayout(
+      mobile: expanded,
+      tablet: reduced,
+      desktop: expanded,
     );
   }
 

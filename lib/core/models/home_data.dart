@@ -13,6 +13,7 @@ class HomeData {
   final double electricityProduction;
   final double bufferLoad;
   final double ratio;
+  final bool isSellingBlocked;
   final bool failure;
 
   HomeData({
@@ -23,6 +24,7 @@ class HomeData {
     @required this.bufferLoad,
     @required this.ratio,
     @required this.failure,
+    @required this.isSellingBlocked,
   });
 
   static HomeData emptyData() => HomeData(
@@ -33,6 +35,7 @@ class HomeData {
         bufferLoad: 4.0,
         ratio: 0.5,
         failure: false,
+        isSellingBlocked: false,
       );
 
   @override

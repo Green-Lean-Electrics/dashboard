@@ -30,7 +30,32 @@ class GaugePanel extends StatelessWidget {
         value: homeData.electricityProduction - homeData.electricityConsumption,
       ),
       Gauge(name: 'Buffer load', units: 'kWh', value: homeData.bufferLoad),
-      Gauge(name: 'Buffer load', units: 'kWh', value: homeData.bufferLoad),
+      Gauge(
+        name: 'Selling to market',
+        units: '',
+        auxWidget: Container(
+          decoration: BoxDecoration(
+            color: homeData.isSellingBlocked
+                  ? Colors.pink.withOpacity(0.3)
+                  : Color.fromRGBO(5, 247, 150, 0.2),
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+          child: Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+            child: Text(
+              homeData.isSellingBlocked ? 'BLOCKED' : 'ALLOWED',
+              style: TextStyle(
+                  color: homeData.isSellingBlocked
+                      ? Colors.pink
+                      : Color.fromRGBO(5, 247, 150, 1),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20),
+            ),
+          ),
+        ),
+        showDelta: false,
+      ),
     ];
 
     return ScreenTypeLayout(

@@ -4,11 +4,15 @@ class Gauge extends StatefulWidget {
   final String name;
   final String units;
   final double value;
+  final bool showDelta;
+  final Widget auxWidget;
 
   Gauge({
     @required this.name,
     @required this.units,
-    @required this.value,
+    this.value,
+    this.auxWidget,
+    this.showDelta = true,
   });
 
   @override
@@ -46,19 +50,22 @@ class _GaugeState extends State<Gauge> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  widget.value > this.previousValue
-                      ? Icon(
-                          Icons.arrow_drop_up,
-                          color: Color.fromRGBO(5, 247, 150, 1),
-                        )
-                      : Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.pink,
-                        ),
-                  Text(
-                    widget.value.toStringAsFixed(1),
-                    style: TextStyle(fontSize: 30),
-                  ),
+                  widget.showDelta
+                      ? widget.value > this.previousValue
+                          ? Icon(
+                              Icons.arrow_drop_up,
+                              color: Color.fromRGBO(5, 247, 150, 1),
+                            )
+                          : Icon(
+                              Icons.arrow_drop_down,
+                              color: Colors.pink,
+                            )
+                      : Container(width: 0, height: 0),
+                  widget.auxWidget ??
+                      Text(
+                        widget.value.toStringAsFixed(1),
+                        style: TextStyle(fontSize: 30),
+                      ),
                   Text(' ' + widget.units),
                 ],
               ),
