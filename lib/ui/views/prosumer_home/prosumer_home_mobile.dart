@@ -19,7 +19,7 @@ class ProsumerHomeMobile extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 1,
             child: ElectricityChart(
-              title: 'Net production',
+              title: 'Demand (kW)',
               lastValue: homeData.electricityConsumption,
             ),
           ),

@@ -54,7 +54,7 @@ class ManagerGridDesktop extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ElectricityChart(
                                   lastValue: gridData.bufferLoad,
-                                  title: 'Buffer load',
+                                  title: 'Buffer load (kWh)',
                                 ),
                               ),
                             ),
@@ -63,7 +63,7 @@ class ManagerGridDesktop extends StatelessWidget {
                                 padding: const EdgeInsets.all(8.0),
                                 child: ElectricityChart(
                                   lastValue: gridData.totalDemand,
-                                  title: 'Grid demand',
+                                  title: 'Grid demand (kW)',
                                   useGreen: true,
                                 ),
                               ),

@@ -83,7 +83,7 @@ class _CoalPlantStateDisplayState extends State<CoalPlantStateDisplay> {
                 color: Colors.grey.withOpacity(0.4),
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 20.0, left: 50),
+                padding: const EdgeInsets.only(right: 20.0, left: 25),
                 child: _isLoading
                     ? Container(
                       width: 150,

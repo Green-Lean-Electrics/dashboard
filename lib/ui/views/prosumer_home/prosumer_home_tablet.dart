@@ -19,7 +19,7 @@ class ProsumerHomeTablet extends StatelessWidget {
           child: AspectRatio(
             aspectRatio: 1.6,
             child: ElectricityChart(
-              title: 'Net production',
+              title: 'Demand (kW)',
               lastValue: homeData.electricityConsumption,
             ),
           ),
