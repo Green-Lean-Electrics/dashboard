@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:dashboard/core/enums/coal_plant_state.dart';
 import 'package:dashboard/core/enums/my_gle_picture_kind.dart';
 import 'package:dashboard/core/enums/user_role.dart';
 import 'package:dashboard/core/models/my_gle_data.dart';
@@ -139,6 +140,21 @@ class FakeAPI implements ApiService {
 
   @override
   Future<void> blockSelling(String householdId, int seconds) async {
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  @override
+  Future<void> setElectricityPrice(double newPrice) async {
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  @override
+  Future<void> setCoalPlantRatio(double ratio) async {
+    await Future.delayed(Duration(seconds: 2));
+  }
+
+  @override
+  Future<void> setCoalPlantState(CoalPlantState state) async {
     await Future.delayed(Duration(seconds: 2));
   }
 }

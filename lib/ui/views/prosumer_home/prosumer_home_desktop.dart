@@ -25,7 +25,11 @@ class ProsumerHomeDesktop extends StatelessWidget {
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: ElectricityChart(lastValue: homeData.electricityConsumption),
+                    child: ElectricityChart(
+                      title: 'Consumption (kW)',
+                      lastValue: homeData.electricityConsumption,
+                      numLabels: 6,
+                    ),
                   ),
                 )
               ],

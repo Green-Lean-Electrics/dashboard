@@ -1,6 +1,6 @@
-import 'package:dashboard/core/redux/connectors/misc/ratio_selector.dart';
 import 'package:dashboard/ui/widgets/charts/chart_title.dart';
 import 'package:dashboard/ui/widgets/charts/indicator.dart';
+import 'package:dashboard/ui/widgets/prosumer_home/ratio_selector.dart';
 import 'package:flutter/material.dart';
 import 'package:pie_chart/pie_chart.dart';
 
@@ -24,7 +24,7 @@ class RatioChart extends StatelessWidget {
                 child: Icon(Icons.settings),
                 onTap: () => showDialog(
                   context: context,
-                  builder: (context) => RatioSelectorConnector(
+                  builder: (context) => RatioSelector(
                     isProsuming: isProsuming,
                     currentRatio: ratio,
                   ),

@@ -6,6 +6,7 @@ class Gauge extends StatefulWidget {
   final double value;
   final bool showDelta;
   final Widget auxWidget;
+  final Widget trailing;
 
   Gauge({
     @required this.name,
@@ -13,6 +14,7 @@ class Gauge extends StatefulWidget {
     this.value,
     this.auxWidget,
     this.showDelta = true,
+    this.trailing,
   });
 
   @override
@@ -39,9 +41,19 @@ class _GaugeState extends State<Gauge> {
           children: <Widget>[
             Padding(
               padding: const EdgeInsets.all(10.0),
-              child: Text(
-                widget.name,
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: <Widget>[
+                  Expanded(
+                    child: Text(
+                      widget.name,
+                      style:
+                          TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  widget.trailing ?? Container()
+                ],
               ),
             ),
             Container(height: 8),

@@ -1,4 +1,5 @@
 import 'package:dashboard/core/redux/connectors/customers/manager_customer.dart';
+import 'package:dashboard/core/redux/connectors/manager_grid.dart';
 import 'package:dashboard/core/redux/connectors/my_gle/my_gle.dart';
 import 'package:dashboard/core/redux/connectors/prosumer_home.dart';
 import 'package:dashboard/ui/views/prosumer_settings/prosumer_settings.dart';
@@ -23,6 +24,8 @@ class Router {
         return _getPageRoute(ProsumerSettingsView());
       case GLE_USERS:
         return _getPageRoute(ManagerCustomersViewConnector());
+      case GLE_GRID:
+        return _getPageRoute(ManagerGridViewConnector());
       default:
         return _getPageRoute(
             Center(child: Text('Unknown route: ' + settings.name)));

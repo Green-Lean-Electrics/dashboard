@@ -18,7 +18,10 @@ class ProsumerHomeTablet extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: AspectRatio(
             aspectRatio: 1.6,
-            child: ElectricityChart(lastValue: homeData.electricityConsumption),
+            child: ElectricityChart(
+              title: 'Net production',
+              lastValue: homeData.electricityConsumption,
+            ),
           ),
         ),
         LayoutBuilder(

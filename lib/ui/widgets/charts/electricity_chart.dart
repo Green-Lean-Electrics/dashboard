@@ -1,11 +1,20 @@
+import 'dart:math';
 import 'package:dashboard/ui/widgets/charts/chart_title.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class ElectricityChart extends StatefulWidget {
   final double lastValue;
+  final String title;
+  final int numLabels;
+  final bool useGreen;
 
-  ElectricityChart({@required this.lastValue});
+  ElectricityChart(
+      {@required this.lastValue,
+      @required this.title,
+      this.numLabels = 4,
+      this.useGreen = false});
 
   @override
   _ElectricityChartState createState() => _ElectricityChartState();
@@ -13,19 +22,50 @@ class ElectricityChart extends StatefulWidget {
 
 class _ElectricityChartState extends State<ElectricityChart> {
   List<double> values = [0.0];
+  List<DateTime> timestamps = [DateTime.now()];
 
-  final List<Color> gradientColors = [
+  double minValue = 0, maxValue = 1;
+
+  Map<String, String> labels = {};
+
+  final List<Color> pinkGradient = [
     Colors.pink,
     Colors.pink[300],
   ];
+
+  final List<Color> greenGradient = [
+    Color.fromRGBO(5, 247, 150, 1),
+    Color.fromRGBO(5, 247, 150, 0.5)
+  ];
+
+  Map<String, String> generateLabels(double min, double max) {
+    double segmentLength = (max - min) / (widget.numLabels + 1);
+    double normalizedsegmentLength = 2 / (widget.numLabels + 1);
+
+    Map<String, String> output = {};
+    for (int i = 1; i <= widget.numLabels; i++) {
+      output[(-0.5 + (normalizedsegmentLength * i)).toStringAsFixed(1)] =
+          (min + (segmentLength * i))
+              .toStringAsFixed(min > 100 || max < -100 ? 0 : 1);
+    }
+    //print(output);
+    return output;
+  }
 
   @override
   void didUpdateWidget(ElectricityChart oldWidget) {
     super.didUpdateWidget(oldWidget);
     values.add(widget.lastValue);
+    timestamps.add(DateTime.now());
+
     if (values.length > 12) {
       values = values.sublist(1, 13);
+      timestamps = timestamps.sublist(1, 13);
     }
+
+    minValue = values.reduce(min);
+    maxValue = values.reduce(max);
+    labels = generateLabels(minValue, maxValue);
   }
 
   @override
@@ -40,7 +80,7 @@ class _ElectricityChartState extends State<ElectricityChart> {
         ),
         child: Column(
           children: <Widget>[
-            ChartTitle(title: 'Buffer load'),
+            ChartTitle(title: widget.title),
             Container(height: 20),
             Expanded(child: LayoutBuilder(builder: (context, constraints) {
               return Container(
@@ -66,6 +106,7 @@ class _ElectricityChartState extends State<ElectricityChart> {
             strokeWidth: 1,
           );
         },
+        horizontalInterval: 0.1,
         getDrawingVerticalLine: (value) {
           return FlLine(
             color: const Color(0xff37434d),
@@ -83,13 +124,11 @@ class _ElectricityChartState extends State<ElectricityChart> {
               fontWeight: FontWeight.bold,
               fontSize: 16),
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 2:
-                return 'MAR';
-              case 5:
-                return 'JUN';
-              case 8:
-                return 'SEP';
+            int position = value.toInt();
+            if ([2, 5, 8].contains(position)) {
+              if (timestamps.length > position) {
+                return DateFormat('HH:mm:ss').format(timestamps[position]);
+              }
             }
             return '';
           },
@@ -102,14 +141,10 @@ class _ElectricityChartState extends State<ElectricityChart> {
             fontWeight: FontWeight.bold,
             fontSize: 15,
           ),
+          interval: 0.1,
           getTitles: (value) {
-            switch (value.toInt()) {
-              case 1:
-                return '10k';
-              case 3:
-                return '30k';
-              case 5:
-                return '50k';
+            if (labels[value.toStringAsFixed(1)] != null) {
+              return labels[value.toStringAsFixed(1)];
             }
             return '';
           },
@@ -122,16 +157,25 @@ class _ElectricityChartState extends State<ElectricityChart> {
           border: Border.all(color: const Color(0xff37434d), width: 1)),
       minX: 0,
       maxX: 11,
-      minY: 0,
-      maxY: 6,
+      minY: -0.5,
+      maxY: 1.5,
       lineBarsData: [
         LineChartBarData(
           spots: List.generate(
             values.length,
-            (index) => FlSpot(index.toDouble(), values[index]),
+            (index) {
+              double normalizedValue;
+              if (maxValue - minValue != 0) {
+                normalizedValue =
+                    (values[index] - minValue) / (maxValue - minValue);
+              } else {
+                normalizedValue = 0.5;
+              }
+              return FlSpot(index.toDouble(), normalizedValue);
+            },
           ),
           isCurved: true,
-          colors: gradientColors,
+          colors: widget.useGreen ? greenGradient : pinkGradient,
           barWidth: 5,
           isStrokeCapRound: true,
           dotData: FlDotData(
@@ -139,8 +183,9 @@ class _ElectricityChartState extends State<ElectricityChart> {
           ),
           belowBarData: BarAreaData(
             show: true,
-            colors:
-                gradientColors.map((color) => color.withOpacity(0.3)).toList(),
+            colors: (widget.useGreen ? greenGradient : pinkGradient)
+                .map((color) => color.withOpacity(0.3))
+                .toList(),
           ),
         ),
       ],

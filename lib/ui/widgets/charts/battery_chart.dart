@@ -5,9 +5,12 @@ import 'package:flutter/material.dart';
 
 class BatteryChart extends StatelessWidget {
   final double bufferLoad;
-  static const MAX_BUFFER_LOAD = 7.0;
+  final bool isCoalPlant;
 
-  BatteryChart({@required this.bufferLoad});
+  static const MAX_BUFFER_LOAD = 7.0;
+  static const MAX_COAL_PLANT_BUFFER_LOAD = 200.0;
+
+  BatteryChart({@required this.bufferLoad, this.isCoalPlant=false});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,9 @@ class BatteryChart extends StatelessWidget {
                         x: 0,
                         barRods: [
                           BarChartRodData(
-                            y: (bufferLoad / MAX_BUFFER_LOAD) * 100,
+                            y: isCoalPlant
+                            ? (bufferLoad / MAX_BUFFER_LOAD) * 100
+                            : (bufferLoad / MAX_COAL_PLANT_BUFFER_LOAD) * 100,
                             color: Color.fromRGBO(5, 247, 150, 1),
                             width: 60,
                             backDrawRodData: BackgroundBarChartRodData(

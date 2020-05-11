@@ -1,14 +1,16 @@
+import 'package:dashboard/core/services/api_service/api_service.dart';
+import 'package:dashboard/locator.dart';
 import 'package:flutter/material.dart';
 
 class RatioSelector extends StatefulWidget {
   final double currentRatio;
   final bool isProsuming;
-  final Function(double) onRatioSelected;
+  final bool isCoalPlant;
 
   RatioSelector({
     @required this.currentRatio,
-    @required this.isProsuming,
-    @required this.onRatioSelected,
+    this.isProsuming,
+    this.isCoalPlant = false,
   });
 
   @override
@@ -41,7 +43,9 @@ class _RatioSelectorState extends State<RatioSelector> {
         ),
       ),
       title: Text(
-        'Select buffer - market ratio',
+        widget.isCoalPlant
+            ? 'Select buffer - grid ratio'
+            : 'Select buffer - market ratio',
         style: TextStyle(fontWeight: FontWeight.bold),
       ),
       content: Container(
@@ -49,11 +53,20 @@ class _RatioSelectorState extends State<RatioSelector> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(widget.isProsuming
-                ? 'Your system is producing more energy than needed. Select how much of your '
-                    'production you want to use to load the buffer. The rest will be sold to the market'
-                : 'Your system is producing less energy than needed. Select how much of your '
-                    'demand you want to take from the buffer (if possible). The rest will be bought from the market'),
+            widget.isCoalPlant
+                ? Text(
+                    'Select how much enery you want to send from the coal plant to the grid '
+                    'and how much you want to use to load the buffer',
+                    style: TextStyle(fontSize: 20),
+                  )
+                : Text(
+                    widget.isProsuming
+                        ? 'Your system is producing more energy than needed. Select how much of your '
+                            'production you want to use to load the buffer. The rest will be sold to the market'
+                        : 'Your system is producing less energy than needed. Select how much of your '
+                            'demand you want to take from the buffer (if possible). The rest will be bought from the market',
+                    style: TextStyle(fontSize: 20),
+                  ),
             Row(
               children: <Widget>[
                 Expanded(
@@ -86,7 +99,12 @@ class _RatioSelectorState extends State<RatioSelector> {
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
             ),
             onPressed: () {
-              widget.onRatioSelected(_selectedRatio);
+              ApiService api = locator<ApiService>();
+              if (widget.isCoalPlant) {
+                api.setCoalPlantRatio(_selectedRatio);
+              } else {
+                api.setHouseholdRatio(_selectedRatio);
+              }
               Navigator.of(context).pop();
             },
           ),

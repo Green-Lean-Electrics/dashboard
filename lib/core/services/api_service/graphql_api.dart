@@ -1,4 +1,5 @@
 import 'dart:typed_data';
+import 'package:dashboard/core/enums/coal_plant_state.dart';
 import 'package:dashboard/core/enums/my_gle_picture_kind.dart';
 import 'package:dashboard/core/models/my_gle_data.dart';
 import 'package:http/http.dart';
@@ -323,6 +324,69 @@ class GraphqlAPI extends ApiService {
     if (result.hasException) {
       throw UserException(result.exception.toString());
     }
+  }
+
+  @override
+  Future<void> setElectricityPrice(double newPrice) async {
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation setElectricityPrice($newPrice: Float!){
+            setElectricityPrice(newPrice: $newPrice)
+          }
+      '''),
+      fetchPolicy: FetchPolicy.noCache,
+      variables: <String, dynamic>{
+        'newPrice': newPrice,
+      },
+    );
+
+    final QueryResult result = await _client.mutate(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
+  }
+
+  @override
+  Future<void> setCoalPlantRatio(double ratio) async {
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation setCoalPlantRatio($ratio: Float!){
+            setCoalPlantRatio(ratio: $ratio)
+          }
+      '''),
+      fetchPolicy: FetchPolicy.noCache,
+      variables: <String, dynamic>{
+        'ratio': ratio,
+      },
+    );
+
+    final QueryResult result = await _client.mutate(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }
+  }
+
+  @override
+  Future<void> setCoalPlantState(CoalPlantState state) async {
+    final MutationOptions options = MutationOptions(
+      documentNode: gql(r'''
+        mutation setCoalPlantState($state: String!){
+            setCoalPlantState(state: $state)
+          }
+      '''),
+      fetchPolicy: FetchPolicy.noCache,
+      variables: <String, dynamic>{
+        'state': state.toString().split('.').last,
+      },
+    );
+
+    final QueryResult result = await _client.mutate(options);
+
+    if (result.hasException) {
+      throw UserException(result.exception.toString());
+    }    
   }
 }
 

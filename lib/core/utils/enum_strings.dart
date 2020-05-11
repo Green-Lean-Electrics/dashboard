@@ -1,3 +1,4 @@
+import 'package:dashboard/core/enums/coal_plant_state.dart';
 import 'package:dashboard/core/enums/menu_options.dart';
 import 'package:dashboard/core/router.dart';
 
