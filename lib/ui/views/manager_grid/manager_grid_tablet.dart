@@ -52,7 +52,7 @@ class ManagerGridTablet extends StatelessWidget {
                 Container(
                   width: constraints.maxWidth * 0.5,
                   child: AspectRatio(
-                    aspectRatio: 1,
+                    aspectRatio: 0.8,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: CoalPlantRatioChart(
@@ -66,7 +66,7 @@ class ManagerGridTablet extends StatelessWidget {
                 Container(
                   width: constraints.maxWidth * 0.5,
                   child: AspectRatio(
-                    aspectRatio: 1,
+                    aspectRatio: 0.8,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: BatteryChart(bufferLoad: gridData.bufferLoad),
@@ -80,7 +80,7 @@ class ManagerGridTablet extends StatelessWidget {
             aspectRatio: 1.8,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
-              child: BlackoutList(blackouts: []),
+              child: BlackoutList(blackouts: gridData.blackouts),
             ),
           )
         ],

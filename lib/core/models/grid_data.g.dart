@@ -13,8 +13,13 @@ GridData _$GridDataFromJson(Map<String, dynamic> json) {
     ratio: (json['ratio'] as num)?.toDouble(),
     totalDemand: (json['totalDemand'] as num)?.toDouble(),
     bufferLoad: (json['bufferLoad'] as num)?.toDouble(),
+    coalPlantProduction: (json['coalPlantProduction'] as num)?.toDouble(),
     coalPlantState:
         _$enumDecodeNullable(_$CoalPlantStateEnumMap, json['coalPlantState']),
+    blackouts: (json['blackouts'] as List)
+        ?.map(
+            (e) => e == null ? null : User.fromJson(e as Map<String, dynamic>))
+        ?.toList(),
   );
 }
 
@@ -24,7 +29,9 @@ Map<String, dynamic> _$GridDataToJson(GridData instance) => <String, dynamic>{
       'totalDemand': instance.totalDemand,
       'bufferLoad': instance.bufferLoad,
       'ratio': instance.ratio,
+      'coalPlantProduction': instance.coalPlantProduction,
       'coalPlantState': _$CoalPlantStateEnumMap[instance.coalPlantState],
+      'blackouts': instance.blackouts,
     };
 
 T _$enumDecode<T>(

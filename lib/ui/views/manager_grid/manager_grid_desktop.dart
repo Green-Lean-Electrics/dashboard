@@ -40,7 +40,7 @@ class ManagerGridDesktop extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: BlackoutList(blackouts: []),
+                                child: BlackoutList(blackouts: gridData.blackouts),
                               ),
                             ),
                           ],

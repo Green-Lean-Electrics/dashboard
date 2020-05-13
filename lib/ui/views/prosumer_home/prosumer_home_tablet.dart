@@ -30,7 +30,7 @@ class ProsumerHomeTablet extends StatelessWidget {
               Container(
                 width: constraints.maxWidth * 0.5,
                 child: AspectRatio(
-                  aspectRatio: 1,
+                  aspectRatio: 0.8,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: RatioChart(
@@ -44,7 +44,7 @@ class ProsumerHomeTablet extends StatelessWidget {
               Container(
                 width: constraints.maxWidth * 0.5,
                 child: AspectRatio(
-                  aspectRatio: 1,
+                  aspectRatio: 0.8,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: BatteryChart(bufferLoad: homeData.bufferLoad),

@@ -77,6 +77,7 @@ const _$LoadingLocationsEnumMap = {
 };
 
 const _$MenuOptionEnumMap = {
+  MenuOption.INITIAL: 'INITIAL',
   MenuOption.PROSUMER_HOME: 'PROSUMER_HOME',
   MenuOption.PROSUMER_MY_GLE: 'PROSUMER_MY_GLE',
   MenuOption.SETTINGS: 'SETTINGS',

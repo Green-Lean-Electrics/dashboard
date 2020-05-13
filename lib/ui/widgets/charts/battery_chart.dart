@@ -82,7 +82,7 @@ class BatteryChart extends StatelessWidget {
               padding: const EdgeInsets.all(20.0),
               child: Indicator(
                 color: Color.fromRGBO(5, 247, 150, 1),
-                text: 'Current buffer load',
+                text: 'Current buffer load (' + bufferLoad.toStringAsFixed(1) + ' kWh)',
                 isSquare: false,
               ),
             ),

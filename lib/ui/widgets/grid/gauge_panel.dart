@@ -31,7 +31,11 @@ class GaugePanel extends StatelessWidget {
         value: gridData.estimatedPrice,
       ),
       Gauge(name: 'Grid demand', units: 'kW', value: gridData.totalDemand),
-      Gauge(name: 'Buffer load', units: 'kWh', value: gridData.bufferLoad),
+      Gauge(
+        name: 'Coal plant production',
+        units: 'kW',
+        value: gridData.coalPlantProduction,
+      ),
     ];
 
     return ScreenTypeLayout(

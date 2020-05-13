@@ -44,14 +44,11 @@ class ManagerGridMobile extends StatelessWidget {
             ),
           ),
         ),
-        AspectRatio(
-          aspectRatio: 1.3,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CoalPlantRatioChart(
-              ratio: gridData.ratio,
-              isCharging: gridData.coalPlantState == CoalPlantState.RUNNING,
-            ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: CoalPlantRatioChart(
+            ratio: gridData.ratio,
+            isCharging: gridData.coalPlantState == CoalPlantState.RUNNING,
           ),
         ),
         AspectRatio(
@@ -65,7 +62,7 @@ class ManagerGridMobile extends StatelessWidget {
           aspectRatio: 1.2,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: BlackoutList(blackouts: []),
+            child: BlackoutList(blackouts: gridData.blackouts),
           ),
         )
       ]),

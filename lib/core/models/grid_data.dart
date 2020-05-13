@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dashboard/core/models/user.dart';
 import 'package:meta/meta.dart';
 import 'package:dashboard/core/enums/coal_plant_state.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -13,7 +14,9 @@ class GridData {
   final double totalDemand;
   final double bufferLoad;
   final double ratio;
+  final double coalPlantProduction;
   final CoalPlantState coalPlantState;
+  final List<User> blackouts;
 
   GridData({
     @required this.realPrice,
@@ -21,7 +24,9 @@ class GridData {
     @required this.ratio,
     @required this.totalDemand,
     @required this.bufferLoad,
+    @required this.coalPlantProduction,
     @required this.coalPlantState,
+    @required this.blackouts,
   });
 
   static GridData emptyData() => GridData(
@@ -30,7 +35,9 @@ class GridData {
         ratio: 0.5,
         totalDemand: 120,
         bufferLoad: 65,
+        coalPlantProduction: 200.0,
         coalPlantState: CoalPlantState.STARTING,
+        blackouts: []
       );
 
   @override
