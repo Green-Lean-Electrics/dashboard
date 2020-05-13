@@ -55,7 +55,10 @@ class ManagerGridMobile extends StatelessWidget {
           aspectRatio: 0.85,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: BatteryChart(bufferLoad: gridData.bufferLoad),
+            child: BatteryChart(
+              bufferLoad: gridData.bufferLoad,
+              isCoalPlant: true,
+            ),
           ),
         ),
         AspectRatio(

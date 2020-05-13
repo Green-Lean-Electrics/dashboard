@@ -40,7 +40,8 @@ class ManagerGridDesktop extends StatelessWidget {
                             Expanded(
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: BlackoutList(blackouts: gridData.blackouts),
+                                child:
+                                    BlackoutList(blackouts: gridData.blackouts),
                               ),
                             ),
                           ],
@@ -91,7 +92,10 @@ class ManagerGridDesktop extends StatelessWidget {
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: BatteryChart(bufferLoad: gridData.bufferLoad),
+                      child: BatteryChart(
+                        bufferLoad: gridData.bufferLoad,
+                        isCoalPlant: true,
+                      ),
                     ),
                   ),
                 ],

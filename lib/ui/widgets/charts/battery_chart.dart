@@ -60,8 +60,8 @@ class BatteryChart extends StatelessWidget {
                         barRods: [
                           BarChartRodData(
                             y: isCoalPlant
-                            ? (bufferLoad / MAX_BUFFER_LOAD) * 100
-                            : (bufferLoad / MAX_COAL_PLANT_BUFFER_LOAD) * 100,
+                            ? (bufferLoad / MAX_COAL_PLANT_BUFFER_LOAD) * 100
+                            : (bufferLoad / MAX_BUFFER_LOAD) * 100,
                             color: Color.fromRGBO(5, 247, 150, 1),
                             width: 60,
                             backDrawRodData: BackgroundBarChartRodData(

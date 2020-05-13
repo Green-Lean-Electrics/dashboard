@@ -24,15 +24,12 @@ class ProsumerHomeMobile extends StatelessWidget {
             ),
           ),
         ),
-        AspectRatio(
-          aspectRatio: 1.3,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: RatioChart(
-              ratio: homeData.ratio,
-              isProsuming: homeData.electricityProduction >
-                  homeData.electricityConsumption,
-            ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: RatioChart(
+            ratio: homeData.ratio,
+            isProsuming: homeData.electricityProduction >
+                homeData.electricityConsumption,
           ),
         ),
         AspectRatio(
