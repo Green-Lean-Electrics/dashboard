@@ -1,4 +1,5 @@
 enum MenuOption {
+  INITIAL,
   PROSUMER_HOME,
   PROSUMER_MY_GLE,
   SETTINGS,

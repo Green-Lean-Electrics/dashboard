@@ -51,7 +51,7 @@ class AppState {
         isAuthenticated: false,
       ),
       loadingLocations: {},
-      menuOption: MenuOption.PROSUMER_HOME,
+      menuOption: MenuOption.INITIAL,
       myGLEData: null,
       customers: null);
 

@@ -1,4 +1,3 @@
-import 'package:dashboard/core/enums/coal_plant_state.dart';
 import 'package:dashboard/core/enums/menu_options.dart';
 import 'package:dashboard/core/router.dart';
 
@@ -12,6 +11,7 @@ class EnumStrings {
   };
 
   static Map<MenuOption, String> menuRoutes = {
+    MenuOption.INITIAL: Router.INITIAL_ROUTE,
     MenuOption.PROSUMER_HOME: Router.HOME_ROUTE,
     MenuOption.PROSUMER_MY_GLE: Router.MY_GLE_ROUTE,
     MenuOption.SETTINGS: Router.SETTINGS_ROUTE,
