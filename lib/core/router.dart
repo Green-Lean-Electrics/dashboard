@@ -16,7 +16,6 @@ class Router {
   static const String GLE_USERS = '/users';
 
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    print('Enrutando ' + settings.name);
     switch (settings.name) {
       case INITIAL_ROUTE:
         return _getPageRoute(Center(child: GreenLeanProgressIndicator()));

@@ -45,7 +45,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
 
     return AuthState(
@@ -92,7 +92,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
 
     return AuthState(
@@ -160,7 +160,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
 
     return User.fromJson(result.data['updateUser']);
@@ -179,7 +179,7 @@ class GraphqlAPI extends ApiService {
     );
     final QueryResult result = await _client.mutate(options);
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
   }
 
@@ -207,7 +207,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.query(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
 
     return MyGLEData(
@@ -246,7 +246,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
 
     return result.data['uploadHouseholdPicture'];
@@ -273,7 +273,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.query(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
 
     return (result.data['users']).map<User>(
@@ -300,7 +300,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
   }
 
@@ -322,7 +322,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
   }
 
@@ -343,7 +343,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
   }
 
@@ -364,7 +364,7 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
+      handleException(result.exception);
     }
   }
 
@@ -385,8 +385,8 @@ class GraphqlAPI extends ApiService {
     final QueryResult result = await _client.mutate(options);
 
     if (result.hasException) {
-      throw UserException(result.exception.toString());
-    }    
+      handleException(result.exception);
+    }
   }
 }
 
@@ -407,7 +407,7 @@ GraphQLClient _buildGraphQLClient() {
 
   final ErrorLink _errorLink = ErrorLink(
     errorHandler: (ErrorResponse response) {
-      throw UserException(response.exception.toString());
+      handleException(response.exception);
     },
   );
 
@@ -416,4 +416,16 @@ GraphQLClient _buildGraphQLClient() {
     cache: InMemoryCache(),
     link: _link,
   );
+}
+
+void handleException(OperationException exception) {
+  String output = "";
+  if (exception.graphqlErrors != null && exception.graphqlErrors.length > 0) {
+    exception.graphqlErrors.forEach((error) => output += '\n' + error.message);
+  } else {
+    if (exception.clientException != null) {
+      output += exception.clientException.message;
+    }
+  }
+  throw UserException(output);
 }

@@ -35,7 +35,7 @@ class ProsumerHomeDesktop extends StatelessWidget {
               ],
             )),
             Container(
-              width: sizingInformation.screenSize.width * 0.15,
+              width: sizingInformation.screenSize.width * 0.2,
               child: Column(
                 children: <Widget>[
                   Padding(

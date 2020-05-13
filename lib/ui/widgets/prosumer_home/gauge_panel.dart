@@ -23,7 +23,11 @@ class GaugePanel extends StatelessWidget {
         units: 'kW',
         value: homeData.electricityConsumption,
       ),
-      Gauge(name: 'Market price', units: 'kr/kWh', value: 2.1),
+      Gauge(
+        name: 'Market price',
+        units: 'kr/kWh',
+        value: homeData.electricityPrice,
+      ),
       Gauge(
         name: 'Net production',
         units: 'kW',
@@ -36,8 +40,8 @@ class GaugePanel extends StatelessWidget {
         auxWidget: Container(
           decoration: BoxDecoration(
             color: homeData.isSellingBlocked
-                  ? Colors.pink.withOpacity(0.3)
-                  : Color.fromRGBO(5, 247, 150, 0.2),
+                ? Colors.pink.withOpacity(0.3)
+                : Color.fromRGBO(5, 247, 150, 0.2),
             borderRadius: BorderRadius.circular(30.0),
           ),
           child: Padding(

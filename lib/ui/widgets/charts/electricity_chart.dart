@@ -48,7 +48,6 @@ class _ElectricityChartState extends State<ElectricityChart> {
           (min + (segmentLength * i))
               .toStringAsFixed(min > 100 || max < -100 ? 0 : 1);
     }
-    //print(output);
     return output;
   }
 

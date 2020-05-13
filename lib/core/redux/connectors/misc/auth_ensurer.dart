@@ -38,7 +38,7 @@ class AuthEnsurer extends StatelessWidget {
             'Something went wrong',
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
-          content: Text(userException.msg),
+          content: Text(userException.msg.replaceAll("Unhandled Failure ", "")),
           actions: <Widget>[
             FlatButton(
               child: Text(

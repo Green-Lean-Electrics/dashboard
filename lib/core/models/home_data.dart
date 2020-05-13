@@ -9,6 +9,7 @@ part 'home_data.g.dart';
 class HomeData {
   final double windSpeed;
   final double temperature;
+  final double electricityPrice;
   final double electricityConsumption;
   final double electricityProduction;
   final double bufferLoad;
@@ -20,6 +21,7 @@ class HomeData {
     @required this.windSpeed,
     @required this.temperature,
     @required this.electricityConsumption,
+    @required this.electricityPrice,
     @required this.electricityProduction,
     @required this.bufferLoad,
     @required this.ratio,
@@ -30,6 +32,7 @@ class HomeData {
   static HomeData emptyData() => HomeData(
         windSpeed: 2.0,
         temperature: 12.0,
+        electricityPrice: 2.1,
         electricityConsumption: 0.0,
         electricityProduction: 0.0,
         bufferLoad: 4.0,

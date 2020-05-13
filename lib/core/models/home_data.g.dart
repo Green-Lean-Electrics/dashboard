@@ -11,6 +11,7 @@ HomeData _$HomeDataFromJson(Map<String, dynamic> json) {
     windSpeed: (json['windSpeed'] as num)?.toDouble(),
     temperature: (json['temperature'] as num)?.toDouble(),
     electricityConsumption: (json['electricityConsumption'] as num)?.toDouble(),
+    electricityPrice: (json['electricityPrice'] as num)?.toDouble(),
     electricityProduction: (json['electricityProduction'] as num)?.toDouble(),
     bufferLoad: (json['bufferLoad'] as num)?.toDouble(),
     ratio: (json['ratio'] as num)?.toDouble(),
@@ -22,6 +23,7 @@ HomeData _$HomeDataFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$HomeDataToJson(HomeData instance) => <String, dynamic>{
       'windSpeed': instance.windSpeed,
       'temperature': instance.temperature,
+      'electricityPrice': instance.electricityPrice,
       'electricityConsumption': instance.electricityConsumption,
       'electricityProduction': instance.electricityProduction,
       'bufferLoad': instance.bufferLoad,

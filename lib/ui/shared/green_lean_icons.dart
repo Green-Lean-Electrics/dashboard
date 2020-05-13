@@ -21,6 +21,6 @@ class GreenLean {
   static const _kFontFam = 'GreenLean';
   static const _kFontPkg = null;
 
+  static const IconData turbine = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData power = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData turbine = IconData(0xe802, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

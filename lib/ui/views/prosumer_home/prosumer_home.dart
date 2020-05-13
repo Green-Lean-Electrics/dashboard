@@ -29,7 +29,6 @@ class _ProsumerHomeViewState extends State<ProsumerHomeView> {
 
   @override
   void initState() {
-    print('PASO POR AQUÍ');
     Map<String, dynamic> authObject = {
       'householdId': widget.householdId,
       'token': widget.token,
@@ -40,7 +39,6 @@ class _ProsumerHomeViewState extends State<ProsumerHomeView> {
 
   @override
   Widget build(BuildContext context) {
-    print('Y POR AQUÍ');
     return StreamBuilder(
       stream: channel.stream,
       builder: (context, snapshot) {

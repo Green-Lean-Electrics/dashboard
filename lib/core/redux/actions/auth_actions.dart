@@ -31,8 +31,6 @@ class LoginAction extends ReduxAction<AppState> {
             ? MenuOption.PROSUMER_HOME
             : MenuOption.MANAGER_GRID;
 
-    print('Seleccionada MO ' + menuOption.toString());
-
     return state.copy(
         authState: authState,
         menuOption: menuOption);
@@ -64,8 +62,6 @@ class SignUpAction extends ReduxAction<AppState> {
     MenuOption menuOption = authState.user.role == UserRole.PROSUMER_ROLE
             ? MenuOption.PROSUMER_HOME
             : MenuOption.MANAGER_GRID;
-
-    print('Seleccionada MO ' + menuOption.toString());
 
     return state.copy(
         authState: authState,
