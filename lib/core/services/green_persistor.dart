@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:async_redux/async_redux.dart';
+import 'package:dashboard/core/enums/menu_options.dart';
+import 'package:dashboard/core/enums/user_role.dart';
 import 'package:dashboard/core/redux/state/auth_state.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:dashboard/core/redux/app_state.dart';
@@ -30,8 +32,17 @@ class GreenPersistor extends Persistor<AppState> {
     try {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var storedState = json.decode(prefs.getString('green_lean_state'));
+      AuthState authState = AuthState.fromJson(storedState);
+      MenuOption initialMenuOption = MenuOption.INITIAL;
+      if (authState != null && authState.isAuthenticated) {
+        if (authState.user.role == UserRole.MANAGER_ROLE) {
+          initialMenuOption = MenuOption.MANAGER_GRID;
+        } else {
+          initialMenuOption = MenuOption.PROSUMER_HOME;
+        }
+      }
       return AppState.initialAppState()
-          .copy(authState: AuthState.fromJson(storedState));
+          .copy(authState: authState, menuOption: initialMenuOption);
     } catch (_) {
       return null;
     }
