@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:dashboard/core/redux/app_state.dart';
-import 'package:dashboard/core/redux/state_logger.dart';
+//import 'package:dashboard/core/redux/state_logger.dart';
 import 'package:dashboard/core/services/green_persistor.dart';
 
 class StoreService {
@@ -20,7 +20,7 @@ class StoreService {
       initialState: initialState,
       persistor: persistor,
       //actionObservers: [Log.printer(formatter: Log.verySimpleFormatter)],
-      stateObservers: [StateLogger()],
+      //stateObservers: [StateLogger()],
     );
   }
 
